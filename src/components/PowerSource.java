@@ -3,12 +3,12 @@ package components;
 import java.util.Collection;
 
 public class PowerSource  extends Component {
-
+    private int draw;
 
 
     public PowerSource(String name) {
         super(name);
-
+        this.draw=0;
     }
 
     /**

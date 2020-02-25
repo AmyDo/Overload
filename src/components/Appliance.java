@@ -6,17 +6,18 @@ import java.util.Collection;
 
 public class Appliance extends Component {
     private Component source;
+    private int rating;
 
     /**
      *
-     * @param name
+     * @param name of this appliance
      * @param source of this appliance.
-     * @param num rated draw/ maximum rated load.
+     * @param rating rated load (unchanged)
      */
-    public Appliance(String name, Component source, int num) {
+    public Appliance(String name, Component source, int rating) {
         super(name);
         this.source=source;
-
+        this.rating= rating;
     }
 
 

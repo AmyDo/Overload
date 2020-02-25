@@ -3,11 +3,18 @@ package components;
 import java.util.Collection;
 
 public class Outlet extends Component {
-    Component source;
+    private Component source;
+    private int draw;   //draw equals to the sum of draw from all connected appliances
 
+    /**
+     *
+     * @param name
+     * @param source
+     */
     public Outlet(String name, Component source) {
         super(name);
         this.source= source;
+        this.draw=0;
     }
 
     /**

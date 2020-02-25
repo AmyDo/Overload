@@ -5,8 +5,9 @@ import java.util.Collection;
 public abstract class Component {
     protected String name;
     protected Boolean on;
-    protected String rating;
     protected String limit;
+    private String rating;
+
 
     public Component(String name) {
         this.name = name;

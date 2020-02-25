@@ -6,19 +6,19 @@ import java.util.Collection;
 
 public class CircuitBreaker extends Component {
     private Component source;
-    private int num;
+    private int draw;
 
 
     /**
      * constructor
      * @param name of this circuit breaker
      * @param source to draw current from
-     * @param num maximum rated load.
+     * @param draw total draws of all outlet
      */
-    public CircuitBreaker(String name, Component source, int num) {
+    public CircuitBreaker(String name, Component source, int draw) {
         super(name);
         this.source= source;
-        this.num= num;
+        this.draw= draw;
     }
 
     /**
