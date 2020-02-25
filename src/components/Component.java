@@ -4,36 +4,9 @@ import java.util.Collection;
 
 public abstract class Component {
     protected String name;
-    protected Boolean on;
-    protected String limit;
-    private String rating;
-
 
     public Component(String name) {
         this.name = name;
-        this.on = false;
-    }
-
-    public String getLimit() {
-        return this.limit;
-    }
-
-    public String getRating() {
-        return this.rating;
-    }
-
-    public boolean isSwitchOn() {
-        return this.on;
-    }
-
-
-    public void turnOn() {
-        this.on = true;
-    }
-
-    public void turnOff() {
-
-        this.on = false;
     }
 
     /**

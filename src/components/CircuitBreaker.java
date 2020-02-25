@@ -7,18 +7,32 @@ import java.util.Collection;
 public class CircuitBreaker extends Component {
     private Component source;
     private int draw;
-
+    private boolean on;
 
     /**
      * constructor
      * @param name of this circuit breaker
      * @param source to draw current from
-     * @param draw total draws of all outlet
+     * @param draw total limit
      */
     public CircuitBreaker(String name, Component source, int draw) {
         super(name);
         this.source= source;
         this.draw= draw;
+        this.on=false;
+    }
+
+    public void turnOn(){
+        this.on=true;
+    }
+    public void turnOff(){
+        this.on=false;
+    }
+    public boolean isSwitchOn(){
+        return this.on;
+    }
+    public int getLimit(){
+        return this.draw;
     }
 
     /**

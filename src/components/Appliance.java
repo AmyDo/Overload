@@ -7,6 +7,7 @@ import java.util.Collection;
 public class Appliance extends Component {
     private Component source;
     private int rating;
+    private boolean on;
 
     /**
      *
@@ -18,7 +19,23 @@ public class Appliance extends Component {
         super(name);
         this.source=source;
         this.rating= rating;
+        this.on=false;
     }
+
+    public void turnOn(){
+        this.on=true;
+    }
+    public void turnOff(){
+        this.on=false;
+    }
+    public boolean isSwitchOn(){
+        return this.on;
+    }
+    public int getRating(){
+        return this.rating;
+    }
+
+
 
 
     /**
