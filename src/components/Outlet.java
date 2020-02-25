@@ -14,6 +14,10 @@ public class Outlet extends Component {
     public Outlet(String name, Component source) {
         super(name);
         this.source= source;
+        source.attach(this);       //attach this to its source
+        if (source.engaged()==true){
+             //if the source is engaged, this component will have power
+        }
         this.draw=0;
     }
 

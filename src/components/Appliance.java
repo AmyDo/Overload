@@ -8,6 +8,8 @@ public class Appliance extends Component {
     private Component source;
     private int rating;
     private boolean on;
+    //Collections of components that attached under this components
+
 
     /**
      *
@@ -18,6 +20,10 @@ public class Appliance extends Component {
     public Appliance(String name, Component source, int rating) {
         super(name);
         this.source=source;
+        source.attach(this);       //attach this to its source
+        if (source.engaged()==true){
+                //if the source is engaged, this component will have power
+        }
         this.rating= rating;
         this.on=false;
     }

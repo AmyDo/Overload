@@ -6,8 +6,10 @@ import java.util.Collection;
 
 public class CircuitBreaker extends Component {
     private Component source;
-    private int draw;
+    private int draw;      //limit
     private boolean on;
+    //create an unmodifiable collections of loads
+
 
     /**
      * constructor
@@ -18,6 +20,10 @@ public class CircuitBreaker extends Component {
     public CircuitBreaker(String name, Component source, int draw) {
         super(name);
         this.source= source;
+        source.attach(this);       //attach this to its source
+        if (source.engaged()==true){
+              //if the source is engaged, this component will have power
+        }
         this.draw= draw;
         this.on=false;
     }
@@ -42,7 +48,6 @@ public class CircuitBreaker extends Component {
      */
     @Override
     protected void addLoad(Component newLoad) {
-
     }
 
     /**
@@ -52,6 +57,7 @@ public class CircuitBreaker extends Component {
      */
     @Override
     protected void attach(Component load) {
+
 
     }
 
@@ -145,7 +151,7 @@ public class CircuitBreaker extends Component {
      */
     @Override
     protected String getName() {
-        return null;
+        return this.name;
     }
 
     /**
@@ -155,7 +161,7 @@ public class CircuitBreaker extends Component {
      */
     @Override
     protected Component getSource() {
-        return null;
+        return this.source;
     }
 
     /**
@@ -165,6 +171,7 @@ public class CircuitBreaker extends Component {
      */
     @Override
     protected void setDraw(int draw) {
+        this.draw= draw;
 
     }
 }
