@@ -4,11 +4,19 @@ import components.Component;
 
 import java.util.Collection;
 
-public class Appliance extends components.Component {
-    private String name;
+public class Appliance extends Component {
+    private Component source;
 
-    public Appliance(String name, components.Component component, int num) {
-        this.name = name;
+    /**
+     *
+     * @param name
+     * @param source of this appliance.
+     * @param num rated draw/ maximum rated load.
+     */
+    public Appliance(String name, Component source, int num) {
+        super(name);
+        this.source=source;
+
     }
 
 

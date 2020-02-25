@@ -1,10 +1,6 @@
 package components.testing;
 
 import components.*;
-import components.Appliance;
-import components.CircuitBreaker;
-import components.Outlet;
-import components.PowerSource;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -79,9 +75,10 @@ public class Tests {
      * This is abnormal and will not appear in any
      * configuration files.
      */
-    private static void oneAppl() {
+    public static void oneAppl() {
         PowerSource a = new PowerSource( "Root" );
         Appliance b = new Appliance( "Radio", a, 10 );
+        a.display();
         a.engage();
         b.turnOn();
         b.turnOff();
@@ -91,12 +88,13 @@ public class Tests {
      * Plug two appliances through a circuit breaker
      * and watch the breaker blow.
      */
-    private static void twoApplWithCB() {
+    public static void twoApplWithCB() {
         PowerSource root = new PowerSource( "Root" );
         CircuitBreaker breaker = new CircuitBreaker( "Breaker", root, 15 );
         Outlet outlet = new Outlet( "Outlet", breaker );
         Appliance a1 = new Appliance( "Heater", outlet, 10 );
         Appliance a2 = new Appliance( "Pump", outlet, 8 );
+        root.display();
         root.engage();
         breaker.turnOn();
         a1.turnOn();
@@ -110,7 +108,7 @@ public class Tests {
      * Enough stuff is added so that a circuit breaker eventually
      * blows when things are turned on.
      */
-    private static void treeOf15() {
+    public static void treeOf15() {
         System.out.println( "\n===== Connection Phase ==========" );
         PowerSource ps = new PowerSource( "Root" );
         CircuitBreaker cb1 = new CircuitBreaker( "Breaker1", ps, 15 );
@@ -162,7 +160,7 @@ public class Tests {
      * to allow multiple main circuits was not part of the
      * requirements for the CS2 project.
      */
-    private static void multiCircuit() {
+    public static void multiCircuit() {
         PowerSource master1 = new PowerSource( "Master1" );
         PowerSource master2 = new PowerSource( "Master2" );
         CircuitBreaker breaker1 = new CircuitBreaker( "Breaker1", master1, 20 );

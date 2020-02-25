@@ -3,11 +3,11 @@ package components;
 import java.util.Collection;
 
 public class Outlet extends Component {
-    Component component;
+    Component source;
 
-    public Outlet(String name1, Component component) {
-        super.name=name1;
-        this.component= component;
+    public Outlet(String name, Component source) {
+        super(name);
+        this.source= source;
     }
 
     /**

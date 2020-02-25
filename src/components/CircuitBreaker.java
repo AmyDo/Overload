@@ -5,14 +5,19 @@ import components.Component;
 import java.util.Collection;
 
 public class CircuitBreaker extends Component {
-    private Component component;
+    private Component source;
     private int num;
 
 
-
-    public CircuitBreaker(String name1, Component component, int num) {
-        super.name= name1;
-        this.component= component;
+    /**
+     * constructor
+     * @param name of this circuit breaker
+     * @param source to draw current from
+     * @param num maximum rated load.
+     */
+    public CircuitBreaker(String name, Component source, int num) {
+        super(name);
+        this.source= source;
         this.num= num;
     }
 
