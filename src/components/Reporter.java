@@ -99,12 +99,12 @@ public class Reporter {
     public static String identify( Component comp ) {
         String identity =
                 comp.getClass().getSimpleName() + " " + comp.getName();
-        if ( comp instanceof Appliance ) {
+        if ( comp instanceof Appliance) {
             final Appliance appl = (Appliance)comp;
             identity += "(" + (appl.isSwitchOn()?"on":"off");
             identity += "; rating " + appl.getRating() + ")";
         }
-        else if ( comp instanceof CircuitBreaker ) {
+        else if ( comp instanceof CircuitBreaker) {
             final CircuitBreaker cb = (CircuitBreaker)comp;
             identity += "(" + (cb.isSwitchOn()?"on":"off");
             identity += "; draw " + comp.getDraw() +

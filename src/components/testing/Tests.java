@@ -1,6 +1,10 @@
 package components.testing;
 
 import components.*;
+import components.Appliance;
+import components.CircuitBreaker;
+import components.Outlet;
+import components.PowerSource;
 
 import java.util.Map;
 import java.util.TreeMap;
