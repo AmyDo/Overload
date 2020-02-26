@@ -67,9 +67,7 @@ public abstract class Component {
     /**
      * the source for this component is now being empowered.
      */
-    protected void engage(){
-        this.getSource().engaged=true;
-    }
+    public abstract void engage();
 
     /**
      * Is is Component currently being fed power?
@@ -130,8 +128,8 @@ public abstract class Component {
      * @return
      */
     @Override
-    public String toString() {
-        return "Component{}";
+    public String toString(){
+        return Reporter.identify(this);
     }
     /**
      * What Component is feeding power to this Component.

@@ -26,6 +26,15 @@ public class Outlet extends Component {
     }
 
     /**
+     * the source for this component is now being empowered.
+     */
+    @Override
+    public void engage() {
+        this.getSource().engaged = true;
+    }
+
+
+    /**
      * What Component is feeding power to this Component.
      *
      * @return source component
@@ -34,15 +43,26 @@ public class Outlet extends Component {
     protected Component getSource() {
         return this.source;
     }
+    /**
+     * Describe a component in the manner of Reporter.identify(Component)
+     *
+     * @return
+     */
+//    @Override
+//    public String toString() {
+//        return "+Outlet "+ this.getName()+ " (" +" draw "+
+//                String.valueOf(this.draw)+")";
+//    }
+
 
     /**
      * Display this (sub)tree vertically, with indentation
      */
-    @Override
-    protected void display() {
-
+    protected void display(){
+         for (Component comp: this.hset){
+             System.out.println(comp.toString());
+        }
     }
-
 
 
 }

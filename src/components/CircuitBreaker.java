@@ -47,6 +47,16 @@ public class CircuitBreaker extends Component {
 
 
     /**
+     * the source for this component is now being empowered.
+     */
+    @Override
+    public void engage() {
+        this.getSource().engaged = true;
+    }
+
+
+
+    /**
      * What Component is feeding power to this Component.
      *
      * @return source component
@@ -55,13 +65,31 @@ public class CircuitBreaker extends Component {
     protected Component getSource() {
         return this.source;
     }
+    /**
+     * Describe a component in the manner of Reporter.identify(Component)
+     *
+     * @return
+     */
+//   @Override
+//    public String toString() {
+//        StringBuilder str= new StringBuilder();
+//        if (this.isSwitchOn()==false){
+//            str.append("off");
+//        }else{
+//            str.append("on");
+//        }
+//        return "+CircuitBreaker "+ this.getName()+ " (" + str +"; draw "+
+//                String.valueOf(this.draw)+ ", limit "+ String.valueOf(limit)+")";
+//    }
+
 
     /**
      * Display this (sub)tree vertically, with indentation
      */
-    @Override
-    protected void display() {
-
+    protected void display(){
+        for (Component comp: this.hset){
+            System.out.println(comp.toString());
+        }
     }
 
 
