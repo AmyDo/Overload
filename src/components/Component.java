@@ -1,6 +1,7 @@
 package components;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 
 public abstract class Component {
@@ -8,10 +9,13 @@ public abstract class Component {
     protected HashSet<Component> hset;
 
 
-
+    /**
+     * constructor
+     * @param name of this component.
+     */
     public Component(String name) {
         this.name = name;
-        hset= new HashSet<>();
+        this.hset= new HashSet<>();
     }
 
     /**
@@ -19,14 +23,18 @@ public abstract class Component {
      *
      * @param newLoad -the new component to be added
      */
-    protected abstract void addLoad(Component newLoad);
+    protected void addLoad(Component newLoad){
+        this.attach(newLoad);
+    }
 
     /**
      * add a new load (sth that draws current to this Component)
      *
      * @param load- the component to be 'pluged in'
      */
-    protected abstract void attach(Component load);
+    protected void attach(Component load){
+        this.hset.add(load);
+    }
 
     /**
      * Change the amount of current passing through this Component.
@@ -82,7 +90,9 @@ public abstract class Component {
      *
      * @return collection of loads
      */
-    protected abstract Collection<Component> getLoads();
+    protected HashSet<Component> getLoads(){
+        return (HashSet<Component>) Collections.unmodifiableCollection(this.hset);
+    }
 
     /**
      * Get component's name
@@ -90,7 +100,7 @@ public abstract class Component {
      * @return string of name
      */
     protected String getName() {
-        return name;
+        return this.name;
     }
 
     /**

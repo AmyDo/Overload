@@ -22,25 +22,7 @@ public class Outlet extends Component {
         this.draw=0;
     }
 
-    /**
-     * Add a new load to this component
-     *
-     * @param newLoad -the new component to be added
-     */
-    @Override
-    protected void addLoad(Component newLoad) {
 
-    }
-
-    /**
-     * add a new load (sth that draws current to this Component)
-     *
-     * @param load - the component to be 'pluged in'
-     */
-    @Override
-    protected void attach(Component load) {
-
-    }
 
     /**
      * Change the amount of current passing through this Component.
@@ -49,7 +31,7 @@ public class Outlet extends Component {
      */
     @Override
     protected void changeDraw(int delta) {
-
+        this.draw+= delta;
     }
 
     /**
@@ -112,17 +94,8 @@ public class Outlet extends Component {
      */
     @Override
     protected int getDraw() {
-        return 0;
-    }
 
-    /**
-     * What loads are attached under this component
-     *
-     * @return collection of loads
-     */
-    @Override
-    protected HashSet<Component> getLoads() {
-        return null;
+        return this.draw;
     }
 
     /**
@@ -132,7 +105,7 @@ public class Outlet extends Component {
      */
     @Override
     protected Component getSource() {
-        return null;
+        return this.source;
     }
 
 
@@ -143,6 +116,6 @@ public class Outlet extends Component {
      */
     @Override
     protected void setDraw(int draw) {
-
+        this.draw=draw;
     }
 }

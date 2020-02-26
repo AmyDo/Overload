@@ -43,26 +43,7 @@ public class CircuitBreaker extends Component {
         return this.draw;
     }
 
-    /**
-     * Add a new load to this component
-     *
-     * @param newLoad -the new component to be added
-     */
-    @Override
-    protected void addLoad(Component newLoad) {
-        this.hset.add(newLoad);
-    }
 
-    /**
-     * add a new load (sth that draws current to this Component)
-     *
-     * @param load - the component to be 'pluged in'
-     */
-    @Override
-    protected void attach(Component load) {
-
-
-    }
 
     /**
      * Change the amount of current passing through this Component.
@@ -71,7 +52,7 @@ public class CircuitBreaker extends Component {
      */
     @Override
     protected void changeDraw(int delta) {
-
+        this.draw+= delta;
     }
 
     /**
@@ -134,28 +115,9 @@ public class CircuitBreaker extends Component {
      */
     @Override
     protected int getDraw() {
-        return 0;
+        return this.draw;
     }
 
-    /**
-     * What loads are attached under this component
-     *
-     * @return collection of loads
-     */
-    @Override
-    protected HashSet<Component> getLoads() {
-        return null;
-    }
-
-    /**
-     * Get component's name
-     *
-     * @return string of name
-     */
-    @Override
-    protected String getName() {
-        return this.name;
-    }
 
     /**
      * What Component is feeding power to this Component.

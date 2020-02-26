@@ -46,33 +46,12 @@ public class Appliance extends Component {
 
 
     /**
-     * Add a new load to this component
-     *
-     * @param newLoad -the new component to be added
-     */
-    @Override
-    protected void addLoad(Component newLoad) {
-
-    }
-
-    /**
-     * add a new load (sth that draws current to this Component)
-     *
-     * @param load - the component to be 'pluged in'
-     */
-    @Override
-    protected void attach(Component load) {
-
-    }
-
-    /**
      * Change the amount of current passing through this Component.
      *
      * @param delta - the number of amp by which to raise (+) or lower(-) the draw
      */
     @Override
     protected void changeDraw(int delta) {
-
     }
 
     /**
@@ -138,15 +117,6 @@ public class Appliance extends Component {
         return 0;
     }
 
-    /**
-     * What loads are attached under this component
-     *
-     * @return collection of loads
-     */
-    @Override
-    protected HashSet<Component> getLoads() {
-        return null;
-    }
 
     /**
      * What Component is feeding power to this Component.
