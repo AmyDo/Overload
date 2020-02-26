@@ -1,14 +1,10 @@
 package components;
 
-import components.Component;
-
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 
 public class CircuitBreaker extends Component {
     private Component source;
-    private int draw;      //limit
+    private int limit;
     private boolean on;
     HashSet<Component> hset= new HashSet<>();  //create an unmodifiable collections of loads
 
@@ -17,16 +13,22 @@ public class CircuitBreaker extends Component {
      * constructor
      * @param name of this circuit breaker
      * @param source to draw current from
-     * @param draw total limit
+     * @param limit max rated load
      */
-    public CircuitBreaker(String name, Component source, int draw) {
+    public CircuitBreaker(String name, Component source, int limit) {
         super(name);
         this.source= source;
         source.attach(this);       //attach this to its source
-        if (source.engaged()==true){
-              //if the source is engaged, this component will have power
+        if (source instanceof CircuitBreaker){
+            if(source.engaged==true && ((CircuitBreaker) source).isSwitchOn()==true){
+                this.engaged= true;
+            }else{
+                this.engaged=false;
+            }
+        }else{
+            this.engaged=false;
         }
-        this.draw= draw;
+        this.limit= limit;
         this.on=false;
     }
 
@@ -44,81 +46,6 @@ public class CircuitBreaker extends Component {
     }
 
 
-
-    /**
-     * Change the amount of current passing through this Component.
-     *
-     * @param delta - the number of amp by which to raise (+) or lower(-) the draw
-     */
-    @Override
-    protected void changeDraw(int delta) {
-        this.draw+= delta;
-    }
-
-    /**
-     * This component tells its loads that they can no longer acts as a source that they
-     * will no longer get any current
-     */
-    @Override
-    protected void disengage() {
-
-    }
-
-    /**
-     * Inform all Components to which this Component acts as a source
-     * that they will no longer get any current
-     */
-    @Override
-    protected void disensageLoads() {
-
-    }
-
-    /**
-     * Display this (sub)tree vertically, with indentation
-     */
-    @Override
-    protected void display() {
-
-    }
-
-    /**
-     * the source for this component is now being empowered.
-     */
-    @Override
-    protected void engage() {
-
-    }
-
-    /**
-     * Is is Component currently being fed power?
-     *
-     * @return true or false
-     */
-    @Override
-    protected boolean engaged() {
-        return false;
-    }
-
-    /**
-     * Inform all Components to which this Component acts as a source
-     * that they may not draw current
-     */
-    @Override
-    protected void engageLoads() {
-
-    }
-
-    /**
-     * Find out how much current this current is drawing.
-     *
-     * @return interger.
-     */
-    @Override
-    protected int getDraw() {
-        return this.draw;
-    }
-
-
     /**
      * What Component is feeding power to this Component.
      *
@@ -130,13 +57,12 @@ public class CircuitBreaker extends Component {
     }
 
     /**
-     * Change this Component draw to the given value
-     *
-     * @param draw to be set to.
+     * Display this (sub)tree vertically, with indentation
      */
     @Override
-    protected void setDraw(int draw) {
-        this.draw= draw;
+    protected void display() {
 
     }
+
+
 }

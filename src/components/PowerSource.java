@@ -1,91 +1,14 @@
 package components;
 
-import java.util.Collection;
-import java.util.HashSet;
-
 public class PowerSource  extends Component {
     private int draw;
 
 
     public PowerSource(String name) {
         super(name);
-        this.draw=0;
+        this.draw=0;    //set draw=0;
     }
 
-
-    /**
-     * Change the amount of current passing through this Component.
-     *
-     * @param delta - the number of amp by which to raise (+) or lower(-) the draw
-     */
-    @Override
-    protected void changeDraw(int delta) {
-        this.draw+= delta;
-    }
-
-    /**
-     * This component tells its loads that they can no longer acts as a source that they
-     * will no longer get any current
-     */
-    @Override
-    protected void disengage() {
-
-    }
-
-    /**
-     * Inform all Components to which this Component acts as a source
-     * that they will no longer get any current
-     */
-    @Override
-    protected void disensageLoads() {
-
-    }
-
-    /**
-     * Display this (sub)tree vertically, with indentation
-     */
-    @Override
-    public void display() {
-
-    }
-
-    /**
-     * the source for this component is now being empowered.
-     */
-    @Override
-    public void engage() {
-
-    }
-
-    /**
-     * Is is Component currently being fed power?
-     *
-     * @return true or false
-     */
-    @Override
-    protected boolean engaged() {
-        return false;
-    }
-
-    /**
-     * Inform all Components to which this Component acts as a source
-     * that they may not draw current
-     */
-    @Override
-    protected void engageLoads() {
-
-    }
-
-    /**
-     * Find out how much current this current is drawing.
-     *
-     * @return interger.
-     */
-    @Override
-    protected int getDraw() {
-
-        return this.draw;
-    }
 
     /**
      * What Component is feeding power to this Component.
@@ -94,17 +17,16 @@ public class PowerSource  extends Component {
      */
     @Override
     protected Component getSource() {
-
         return null;
     }
-
     /**
-     * Change this Component draw to the given value
-     *
-     * @param draw to be set to.
+     * Display this (sub)tree vertically, with indentation
      */
     @Override
-    protected void setDraw(int draw) {
-        this.draw= draw;
+    public void display() {
+
     }
+
+
+
 }

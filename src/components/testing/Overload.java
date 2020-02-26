@@ -9,7 +9,7 @@ import java.util.*;
 /**
  * DESCRIPTION
  *
- * @author YOUR NAME HERE
+ * @author Amy Do
  */
 public class Overload {
 
@@ -50,8 +50,40 @@ public class Overload {
         );
     }
 
+
+
+
+    public Overload(String filename){
+        readFile(filename);
+
+    }
+
     public static void main( String[] args ) {
         System.out.println( "Overload Project, CS2" );
+        if(args.length!=1){
+            System.out.println("Please Enter correct filename");
+            return;
+        }else{
+            new Overload(args[0]).run();
+        }
+
+
+
+    }
+
+    public void run(){
+
+    }
+
+
+    public void readFile(String filename){
+        try(Scanner configFile= new Scanner((new File( filename)))){
+            while( configFile.hasNextLine()){
+                //process the line in the text
+            }
+        } catch (FileNotFoundException e) {
+        }
+
     }
 
 }

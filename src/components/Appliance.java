@@ -1,121 +1,52 @@
 package components;
 
-import components.Component;
-
-import java.util.Collection;
-import java.util.HashSet;
-
 public class Appliance extends Component {
     private Component source;
-    private int rating;
+    private static int RATING;
     private boolean on;
-
-
 
     /**
      * constructor
-     * @param name of this appliance
+     *
+     * @param name   of this appliance
      * @param source of this appliance.
-     * @param rating rated load (unchanged)
+     * @param rating rated draw(unchanged)
      */
     public Appliance(String name, Component source, int rating) {
         super(name);
-        this.source=source;
+        this.source = source;
         source.attach(this);       //attach this componnent to its source
-        if (source.engaged()==true){
-                //if the source is engaged, this component will have power
+        if (source instanceof CircuitBreaker) {    //if the source is swichable (circuitbreaker, Appliance)
+            if (source.engaged() == true && ((CircuitBreaker) source).isSwitchOn() == true) {
+                this.engaged = true;
+            } else {
+                this.engaged = false;
+            }
+        } else {    //if the source is not a switchable component.
+            if (source.engaged() == true) {
+                this.engaged = true;
+            } else {
+                this.engaged = false;
+            }
         }
-        this.rating= rating;
-        this.on=false;
+        this.RATING = rating;
+        this.on = false;
     }
 
-    public void turnOn(){
-        this.on=true;
+    public void turnOn() {
+        this.on = true;
     }
-    public void turnOff(){
-        this.on=false;
+
+    public void turnOff() {
+        this.on = false;
     }
-    public boolean isSwitchOn(){
+
+    public boolean isSwitchOn() {
         return this.on;
     }
-    public int getRating(){
-        return this.rating;
-    }
 
-
-
-
-    /**
-     * Change the amount of current passing through this Component.
-     *
-     * @param delta - the number of amp by which to raise (+) or lower(-) the draw
-     */
-    @Override
-    protected void changeDraw(int delta) {
-    }
-
-    /**
-     * This component tells its loads that they can no longer acts as a source that they
-     * will no longer get any current
-     */
-    @Override
-    protected void disengage() {
-
-    }
-
-    /**
-     * Inform all Components to which this Component acts as a source
-     * that they will no longer get any current
-     */
-    @Override
-    protected void disensageLoads() {
-
-    }
-
-    /**
-     * Display this (sub)tree vertically, with indentation
-     */
-    @Override
-    protected void display() {
-
-    }
-
-    /**
-     * the source for this component is now being empowered.
-     */
-    @Override
-    protected void engage() {
-
-    }
-
-    /**
-     * Is is Component currently being fed power?
-     *
-     * @return true or false
-     */
-    @Override
-    protected boolean engaged() {
-        return false;
-    }
-
-    /**
-     * Inform all Components to which this Component acts as a source
-     * that they may not draw current
-     */
-    @Override
-    protected void engageLoads() {
-
-    }
-
-    /**
-     * Find out how much current this current is drawing.
-     *
-     * @return interger.
-     */
-    @Override
-    protected int getDraw() {
-
-        return this.rating;
+    public int getRating() {
+        return this.RATING;
     }
 
 
@@ -126,17 +57,16 @@ public class Appliance extends Component {
      */
     @Override
     protected Component getSource() {
-
         return this.source;
     }
-
     /**
-     * Change this Component draw to the given value
-     *
-     * @param draw to be set to.
+     * Display this (sub)tree vertically, with indentation
      */
     @Override
-    protected void setDraw(int draw) {
-        this.rating=draw;
+    protected void display() {
+
     }
+
 }
+
+
