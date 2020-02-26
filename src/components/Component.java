@@ -1,12 +1,17 @@
 package components;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 public abstract class Component {
     protected String name;
+    protected HashSet<Component> hset;
+
+
 
     public Component(String name) {
         this.name = name;
+        hset= new HashSet<>();
     }
 
     /**

@@ -3,6 +3,7 @@ package components;
 import components.Component;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 public class Appliance extends Component {
     private Component source;
@@ -143,7 +144,7 @@ public class Appliance extends Component {
      * @return collection of loads
      */
     @Override
-    protected Collection<Component> getLoads() {
+    protected HashSet<Component> getLoads() {
         return null;
     }
 

@@ -1,6 +1,7 @@
 package components;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 public class PowerSource  extends Component {
     private int draw;
@@ -110,7 +111,7 @@ public class PowerSource  extends Component {
      * @return collection of loads
      */
     @Override
-    protected Collection<Component> getLoads() {
+    protected HashSet<Component> getLoads() {
         return null;
     }
 

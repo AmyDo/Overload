@@ -3,12 +3,14 @@ package components;
 import components.Component;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 
 public class CircuitBreaker extends Component {
     private Component source;
     private int draw;      //limit
     private boolean on;
-    //create an unmodifiable collections of loads
+    HashSet<Component> hset= new HashSet<>();  //create an unmodifiable collections of loads
 
 
     /**
@@ -48,6 +50,7 @@ public class CircuitBreaker extends Component {
      */
     @Override
     protected void addLoad(Component newLoad) {
+        this.hset.add(newLoad);
     }
 
     /**
@@ -140,7 +143,7 @@ public class CircuitBreaker extends Component {
      * @return collection of loads
      */
     @Override
-    protected Collection<Component> getLoads() {
+    protected HashSet<Component> getLoads() {
         return null;
     }
 

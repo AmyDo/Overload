@@ -1,6 +1,7 @@
 package components;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 public class Outlet extends Component {
     private Component source;
@@ -120,7 +121,7 @@ public class Outlet extends Component {
      * @return collection of loads
      */
     @Override
-    protected Collection<Component> getLoads() {
+    protected HashSet<Component> getLoads() {
         return null;
     }
 
