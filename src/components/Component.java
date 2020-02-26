@@ -15,7 +15,7 @@ public abstract class Component {
      */
     public Component(String name) {
         this.name = name;
-        this.hset= new HashSet<>();
+        this.hset= new HashSet<>();      //create set of loads
     }
 
     /**
