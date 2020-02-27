@@ -25,6 +25,8 @@ public class Outlet extends Component {
             super.engaged=false;
         }
         this.draw = 0;
+        Reporter.report(this, Reporter.Msg.CREATING);
+        Reporter.report(source, this, Reporter.Msg.ATTACHING);
     }
 
     /**
@@ -33,6 +35,15 @@ public class Outlet extends Component {
     @Override
     public void engage() {
         this.getSource().engaged = true;
+        if(source instanceof CircuitBreaker){
+            CircuitBreaker src= (CircuitBreaker) source;
+            if (src.engaged && src.isSwitchOn()){
+                Reporter.report(this, Reporter.Msg.ENGAGING);
+            }
+        }else{
+            Reporter.report(this, Reporter.Msg.ENGAGING);
+        }
+
     }
 
 

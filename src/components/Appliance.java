@@ -38,6 +38,7 @@ public class Appliance extends Component {
         this.RATING = rating;
         this.on = false;
         Reporter.report(this, Reporter.Msg.CREATING);
+        Reporter.report(source, this, Reporter.Msg.ATTACHING);
     }
 
     public void turnOn() {

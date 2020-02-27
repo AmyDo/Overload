@@ -34,6 +34,7 @@ public abstract class Component {
      * @param load- the component to be 'pluged in'
      */
     protected void attach(Component load){
+
         this.hset.add(load);
     }
 

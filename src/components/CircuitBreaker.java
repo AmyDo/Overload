@@ -30,10 +30,14 @@ public class CircuitBreaker extends Component {
         }
         this.limit= limit;
         this.on=false;
+        Reporter.report(this, Reporter.Msg.CREATING);
+        Reporter.report(source, this, Reporter.Msg.ATTACHING);
+
     }
 
     public void turnOn(){
         this.on=true;
+        Reporter.report(this, Reporter.Msg.SWITCHING_ON);
     }
     public void turnOff(){
         this.on=false;
@@ -41,8 +45,8 @@ public class CircuitBreaker extends Component {
     public boolean isSwitchOn(){
         return this.on;
     }
-    public int getLimit(){
-        return this.draw;
+    public String getLimit(){
+        return Integer.toString(limit);
     }
 
 
@@ -52,6 +56,7 @@ public class CircuitBreaker extends Component {
     @Override
     public void engage() {
         this.getSource().engaged = true;
+        Reporter.report(this, Reporter.Msg.ENGAGING);
     }
 
 
