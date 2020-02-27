@@ -38,6 +38,7 @@ public class CircuitBreaker extends Component {
     public void turnOn(){
         this.on=true;
         Reporter.report(this, Reporter.Msg.SWITCHING_ON);
+
     }
     public void turnOff(){
         this.on=false;
@@ -56,6 +57,10 @@ public class CircuitBreaker extends Component {
     @Override
     public void engage() {
         this.getSource().engaged = true;
+        this.engaged=true;
+        for(Component comp: this.hset){
+            comp.engage();
+        }
         Reporter.report(this, Reporter.Msg.ENGAGING);
     }
 

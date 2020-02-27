@@ -37,12 +37,15 @@ public class Outlet extends Component {
         this.getSource().engaged = true;
         if(source instanceof CircuitBreaker){
             CircuitBreaker src= (CircuitBreaker) source;
-            if (src.engaged && src.isSwitchOn()){
+            if (src.isSwitchOn()){
+                this.engaged=true;
                 Reporter.report(this, Reporter.Msg.ENGAGING);
             }
-        }else{
-            Reporter.report(this, Reporter.Msg.ENGAGING);
         }
+            for(Component comp: this.hset){
+                comp.engage();
+            }
+
 
     }
 

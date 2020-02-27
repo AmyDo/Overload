@@ -19,6 +19,7 @@ public class PowerSource  extends Component {
      */
     @Override
     public void engage() {
+        this.engaged=true;
         Reporter.report(this, Reporter.Msg.ENGAGING);
         for(Component comp: hset){
             comp.engage();
