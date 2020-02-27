@@ -1,5 +1,7 @@
 package components;
 
+import java.util.HashSet;
+
 public class Outlet extends Component {
     private Component source;
     private int draw;   //draw equals to the sum of draw from all connected appliances
@@ -43,25 +45,32 @@ public class Outlet extends Component {
     protected Component getSource() {
         return this.source;
     }
-    /**
-     * Describe a component in the manner of Reporter.identify(Component)
-     *
-     * @return
-     */
-//    @Override
-//    public String toString() {
-//        return "+Outlet "+ this.getName()+ " (" +" draw "+
-//                String.valueOf(this.draw)+")";
-//    }
+
 
 
     /**
      * Display this (sub)tree vertically, with indentation
      */
+    @Override
     protected void display(){
-         for (Component comp: this.hset){
-             System.out.println(comp.toString());
+        System.out.println(printComponent(this.hset));
+
+    }
+
+    @Override
+    protected String printComponent(HashSet<Component> hset) {
+        String str="";
+        if (hset.isEmpty()){
+            return null;
+        }else{
+            for (Component comp : hset){
+                str= "+"+ Reporter.identify(comp);
+                printComponent(comp.hset);
+            }
+
+
         }
+        return str;
     }
 
 

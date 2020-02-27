@@ -1,9 +1,12 @@
 package components;
 
+import java.util.HashSet;
+
 public class Appliance extends Component {
     private Component source;
-    private static int RATING;
+    private int RATING;
     private boolean on;
+
 
     /**
      * constructor
@@ -13,41 +16,57 @@ public class Appliance extends Component {
      * @param rating rated draw(unchanged)
      */
     public Appliance(String name, Component source, int rating) {
+
         super(name);
         this.source = source;
         source.attach(this);       //attach this componnent to its source
         if (source instanceof CircuitBreaker) {    //if the source is swichable (circuitbreaker, Appliance)
-            if (source.engaged() == true && ((CircuitBreaker) source).isSwitchOn() == true) {
+            if (source.engaged() && ((CircuitBreaker) source).isSwitchOn()) {
                 this.engaged = true;
+
             } else {
                 this.engaged = false;
             }
         } else {    //if the source is not a switchable component.
-            if (source.engaged() == true) {
+            if (source.engaged()) {
                 this.engaged = true;
+
             } else {
                 this.engaged = false;
             }
         }
         this.RATING = rating;
         this.on = false;
+        Reporter.report(this, Reporter.Msg.CREATING);
     }
 
     public void turnOn() {
         this.on = true;
+        Reporter.report(this, Reporter.Msg.SWITCHING_ON);
+        this.source.changeDraw(RATING);
+        Reporter.report(this.getSource(), Reporter.Msg.DRAW_CHANGE , source.getDraw());
     }
 
     public void turnOff() {
         this.on = false;
+        Reporter.report(this, Reporter.Msg.SWITCHING_OFF);
+        this.source.changeDraw(-RATING);
+        Reporter.report(this.getSource(), Reporter.Msg.DRAW_CHANGE, this.RATING);
     }
 
     public boolean isSwitchOn() {
         return this.on;
     }
+//
+//    public int getRating() {
+//        return this.RATING;
+//    }
 
-    public int getRating() {
-        return this.RATING;
+    public String getRating() {
+        return Integer.toString(this.RATING);
     }
+
+
 
 
     /**
@@ -56,6 +75,7 @@ public class Appliance extends Component {
     @Override
     public void engage() {
         this.getSource().engaged = true;
+        Reporter.report(this, Reporter.Msg.ENGAGING);
     }
 
 
@@ -70,29 +90,29 @@ public class Appliance extends Component {
     }
 
     /**
-     * Describe a component in the manner of Reporter.identify(Component)
-     *
-     * @return
-     */
-//    @Override
-//    public String toString() {
-//        StringBuilder str= new StringBuilder();
-//        if (this.isSwitchOn()==false){
-//            str.append("off");
-//        }else{
-//            str.append("on");
-//        }
-//        return "+Appliance "+ this.getName()+ " (" + str +"; rating "+
-//                String.valueOf(this.RATING)+ ")";
-//    }
-    /**
      * Display this (sub)tree vertically, with indentation
      */
+    @Override
     protected void display(){
-        for (Component comp: this.hset){
-            System.out.println(comp.toString());
-        }
     }
+
+    @Override
+    protected String printComponent(HashSet<Component> hset) {
+        String str="";
+        if (hset.isEmpty()){
+            return null;
+        }else{
+            for (Component comp : hset){
+                str= "+"+ Reporter.identify(comp);
+                printComponent(comp.hset);
+            }
+
+
+        }
+        return str;
+    }
+
+
 }
 
 

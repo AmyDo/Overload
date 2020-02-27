@@ -119,6 +119,7 @@ public abstract class Component {
      * @param draw to be set to.
      */
     protected void setDraw(int draw){
+
         this.draw= draw;
     }
 
@@ -142,5 +143,7 @@ public abstract class Component {
      * Display this (sub)tree vertically, with indentation
      */
     protected abstract void display();
+
+    protected abstract String printComponent(HashSet<Component> hset);
 
 }

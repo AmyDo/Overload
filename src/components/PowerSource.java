@@ -1,12 +1,17 @@
 package components;
 
+import java.util.HashSet;
+
 public class PowerSource  extends Component {
-    private int draw;
+    private boolean created;
+
 
 
     public PowerSource(String name) {
         super(name);
-        this.draw=0;    //set draw=0;
+        this.engaged=true;
+        this.created=true;
+        Reporter.report(this, Reporter.Msg.CREATING);
     }
 
     /**
@@ -14,6 +19,10 @@ public class PowerSource  extends Component {
      */
     @Override
     public void engage() {
+        Reporter.report(this, Reporter.Msg.ENGAGING);
+        for(Component comp: hset){
+            comp.engage();
+        }
     }
 
     /**
@@ -26,24 +35,29 @@ public class PowerSource  extends Component {
         return null;
     }
 
-
-    /**
-     * Describe a component in the manner of Reporter.identify(Component)
-     *
-     * @return
-     */
-//    @Override
-//    public String toString() {
-//        return "+PowerSource "+ this.getName()+ " (" +" draw "+
-//                String.valueOf(this.draw)+")";
-//    }
     /**
      * Display this (sub)tree vertically, with indentation
      */
-    public void display(){
+    @Override
+    public void display() {
         for (Component comp: this.hset){
-            System.out.println(comp.toString());
+            Reporter.report(this, comp, Reporter.Msg.ATTACHING);
+        }
+    }
+
+    @Override
+    protected String printComponent(HashSet<Component> hset) {
+        String str="";
+        if (hset.isEmpty()){
+            return null;
+        }else{
+            for (Component comp : hset){
+                str= "+"+ Reporter.identify(comp);
+                printComponent(comp.hset);
+            }
+
 
         }
+        return str;
     }
 }
