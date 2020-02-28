@@ -4,25 +4,25 @@ import java.util.HashSet;
 
 public class Outlet extends Component {
     private Component source;
-    private int draw;   //draw equals to the sum of draw from all connected appliances
 
     /**
-     *constructor
-     * @param name of this outlet
+     * constructor
+     *
+     * @param name   of this outlet
      * @param source that this outlet drw from
      */
     public Outlet(String name, Component source) {
         super(name);
-        this.source= source;
+        this.source = source;
         source.attach(this);       //attach this to its source
-        if (source instanceof CircuitBreaker){
-            if(source.engaged==true && ((CircuitBreaker) source).isSwitchOn()==true){
-                super.engaged= true;
-            }else{
-                super.engaged=false;
+        if (source instanceof CircuitBreaker) {
+            if (source.engaged == true && ((CircuitBreaker) source).isSwitchOn() == true) {
+                this.engaged = true;
+            } else {
+                this.engaged = false;
             }
-        }else{
-            super.engaged=false;
+        } else {
+            this.engaged = false;
         }
         this.draw = 0;
         Reporter.report(this, Reporter.Msg.CREATING);
@@ -35,50 +35,37 @@ public class Outlet extends Component {
     @Override
     public void engage() {
         this.getSource().engaged = true;
-        if(source instanceof CircuitBreaker){
-            CircuitBreaker src= (CircuitBreaker) source;
-            if (src.isSwitchOn()){
-                this.engaged=true;
-                Reporter.report(this, Reporter.Msg.ENGAGING);
-            }
+        this.engaged = true;
+        Reporter.report(this, Reporter.Msg.ENGAGING);
+        for(Component comp: hset){
+           comp.engage();
         }
-            for(Component comp: this.hset){
-                comp.engage();
-            }
-
-
     }
-
-
     /**
      * What Component is feeding power to this Component.
-     *
      * @return source component
      */
     @Override
     protected Component getSource() {
         return this.source;
     }
-
-
-
     /**
      * Display this (sub)tree vertically, with indentation
      */
     @Override
-    protected void display(){
+    protected void display() {
         System.out.println(printComponent(this.hset));
 
     }
 
     @Override
     protected String printComponent(HashSet<Component> hset) {
-        String str="";
-        if (hset.isEmpty()){
+        String str = "";
+        if (hset.isEmpty()) {
             return null;
-        }else{
-            for (Component comp : hset){
-                str= "+"+ Reporter.identify(comp);
+        } else {
+            for (Component comp : hset) {
+                str = "+" + Reporter.identify(comp);
                 printComponent(comp.hset);
             }
 
@@ -86,6 +73,10 @@ public class Outlet extends Component {
         }
         return str;
     }
-
+    @Override
+    protected void changeDraw(int delta) {
+        super.changeDraw(delta);
+        this.getSource().changeDraw(delta);
+    }
 
 }

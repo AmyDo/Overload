@@ -75,7 +75,6 @@ public class Overload {
 
     }
 
-
     public void readFile(String filename){
         try(Scanner configFile= new Scanner((new File( filename)))){
             while( configFile.hasNextLine()){

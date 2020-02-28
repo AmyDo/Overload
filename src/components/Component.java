@@ -2,6 +2,7 @@ package components;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.concurrent.CompletionException;
 
 public abstract class Component {
     protected String name;
@@ -11,12 +12,13 @@ public abstract class Component {
 
     /**
      * constructor
+     *
      * @param name of this component.
      */
     public Component(String name) {
         this.name = name;
-        this.hset= new HashSet<>();      //create set of loads
-        this.draw=0;
+        this.hset = new HashSet<>();      //create set of loads
+        this.draw = 0;
     }
 
     /**
@@ -24,17 +26,17 @@ public abstract class Component {
      *
      * @param newLoad -the new component to be added
      */
-    protected void addLoad(Component newLoad){
+    protected void addLoad(Component newLoad) {
         this.attach(newLoad);
     }
 
     /**
      * add a new load (sth that draws current to this Component)
      * If this component is engaged, the new load becomes engaged.
+     *
      * @param load- the component to be 'pluged in'
      */
-    protected void attach(Component load){
-
+    protected void attach(Component load) {
         this.hset.add(load);
     }
 
@@ -43,24 +45,27 @@ public abstract class Component {
      *
      * @param delta- the number of amp by which to raise (+) or lower(-) the draw
      */
-    protected void changeDraw(int delta){
+    protected void changeDraw(int delta) {
         this.draw+= delta;
+        Reporter.report(this, Reporter.Msg.DRAW_CHANGE, delta );
     }
 
     /**
      * This component tells its loads that they can no longer acts as a source that they
      * will no longer get any current
      */
-    protected void disengage(){
-       this.engaged=false;
+    protected void disengage() {
+        this.engaged=false;
+        Reporter.report(this, Reporter.Msg.DISENGAGING);
     }
 
     /**
      * Inform all Components to which this Component acts as a source
      * that they will no longer get any current
      */
-    protected void disensageLoads(){
-        for (Component comp: this.hset){
+    protected void disensageLoads() {
+
+        for (Component comp : this.hset) {
             comp.disengage();
         }
     }
@@ -72,9 +77,8 @@ public abstract class Component {
 
     /**
      * Is is Component currently being fed power?
-     *
      */
-    protected boolean engaged(){
+    protected boolean engaged() {
         return this.engaged;
     }
 
@@ -82,8 +86,8 @@ public abstract class Component {
      * Inform all Components to which this Component acts as a source
      * that they may not draw current
      */
-    protected void engageLoads(){
-        for (Component comp: this.hset){
+    protected void engageLoads() {
+        for (Component comp : this.hset) {
             comp.engage();
         }
     }
@@ -93,7 +97,7 @@ public abstract class Component {
      *
      * @return interger.
      */
-    protected int getDraw(){
+    protected int getDraw() {
         return this.draw;
     }
 
@@ -102,9 +106,10 @@ public abstract class Component {
      *
      * @return collection of loads
      */
-    protected HashSet<Component> getLoads(){
+    protected HashSet<Component> getLoads() {
         return (HashSet<Component>) Collections.unmodifiableCollection(this.hset);
     }
+
     /**
      * Get component's name
      *
@@ -119,9 +124,8 @@ public abstract class Component {
      *
      * @param draw to be set to.
      */
-    protected void setDraw(int draw){
-
-        this.draw= draw;
+    protected void setDraw(int draw) {
+        this.draw = draw;
     }
 
     /**
@@ -130,9 +134,10 @@ public abstract class Component {
      * @return
      */
     @Override
-    public String toString(){
+    public String toString() {
         return Reporter.identify(this);
     }
+
     /**
      * What Component is feeding power to this Component.
      *

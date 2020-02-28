@@ -41,9 +41,9 @@ public class PowerSource  extends Component {
      */
     @Override
     public void display() {
-        for (Component comp: this.hset){
-            Reporter.report(this, comp, Reporter.Msg.ATTACHING);
-        }
+//        for (Component comp: this.hset){
+//            Reporter.report(this, comp, Reporter.Msg.ATTACHING);
+//        }
     }
 
     @Override
@@ -60,5 +60,10 @@ public class PowerSource  extends Component {
 
         }
         return str;
+    }
+    @Override
+    protected void changeDraw(int delta) {
+        super.changeDraw(delta);
+
     }
 }

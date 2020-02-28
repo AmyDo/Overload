@@ -6,47 +6,59 @@ public class CircuitBreaker extends Component {
     private Component source;
     private int limit;
     private boolean on;
-    HashSet<Component> hset= new HashSet<>();  //create an unmodifiable collections of loads
+
 
 
     /**
      * constructor
-     * @param name of this circuit breaker
+     *
+     * @param name   of this circuit breaker
      * @param source to draw current from
-     * @param limit max rated load
+     * @param limit  max rated load
      */
     public CircuitBreaker(String name, Component source, int limit) {
         super(name);
-        this.source= source;
+        this.source = source;
         source.attach(this);       //attach this to its source
-        if (source instanceof CircuitBreaker){
-            if(source.engaged==true && ((CircuitBreaker) source).isSwitchOn()==true){
-                this.engaged= true;
-            }else{
-                this.engaged=false;
+        if (source instanceof CircuitBreaker) {
+            if (source.engaged == true && ((CircuitBreaker) source).isSwitchOn() == true) {
+                this.engaged = true;
+            } else {
+                this.engaged = false;
             }
-        }else{
-            this.engaged=false;
+        } else {
+            this.engaged = false;
         }
-        this.limit= limit;
-        this.on=false;
+        this.limit = limit;
+        this.on = false;
         Reporter.report(this, Reporter.Msg.CREATING);
         Reporter.report(source, this, Reporter.Msg.ATTACHING);
 
     }
 
-    public void turnOn(){
-        this.on=true;
+    public void turnOn() {
+        this.on = true;
         Reporter.report(this, Reporter.Msg.SWITCHING_ON);
 
+        for (Component comp: hset){
+            comp.engage();
+        }
+
+
     }
-    public void turnOff(){
-        this.on=false;
+
+    public void turnOff() {
+        this.on = false;
+        Reporter.report(this, Reporter.Msg.SWITCHING_OFF);
+        this.source.changeDraw(-draw);
+
     }
-    public boolean isSwitchOn(){
+
+    public boolean isSwitchOn() {
         return this.on;
     }
-    public String getLimit(){
+
+    public String getLimit() {
         return Integer.toString(limit);
     }
 
@@ -57,13 +69,9 @@ public class CircuitBreaker extends Component {
     @Override
     public void engage() {
         this.getSource().engaged = true;
-        this.engaged=true;
-        for(Component comp: this.hset){
-            comp.engage();
-        }
+        this.engaged = true;
         Reporter.report(this, Reporter.Msg.ENGAGING);
     }
-
 
 
     /**
@@ -76,32 +84,46 @@ public class CircuitBreaker extends Component {
         return this.source;
     }
 
+    /**
+     * Inform all Components to which this Component acts as a source
+     * that they will no longer get any current
+     */
+    @Override
+    protected void disensageLoads() {
+        super.disensageLoads();
+    }
 
     /**
      * Display this (sub)tree vertically, with indentation
      */
     @Override
-    protected void display(){
+    protected void display() {
         System.out.println();
-
-
     }
-
     @Override
     protected String printComponent(HashSet<Component> hset) {
-        String str="";
-        if (hset.isEmpty()){
+        String str = "";
+        if (hset.isEmpty()) {
             return null;
-        }else{
-            for (Component comp : hset){
-                str= "+"+ Reporter.identify(comp);
+        } else {
+            for (Component comp : hset) {
+                str = "+" + Reporter.identify(comp);
                 printComponent(comp.hset);
             }
-
-
         }
         return str;
     }
-
+    @Override
+    protected void changeDraw(int delta) {
+        super.changeDraw(delta);
+        if (this.draw> this.limit){
+                Reporter.report(this, Reporter.Msg.BLOWN, this.getDraw());
+                this.turnOff();
+                this.disensageLoads();
+        }
+        if (this.getSource()!=null) {
+            this.getSource().changeDraw(delta);
+        }
+    }
 
 }
