@@ -6,6 +6,7 @@ public class CircuitBreaker extends Component {
     private Component source;
     private int limit;
     private boolean on;
+    private int prevDelta;
 
 
 
@@ -50,7 +51,8 @@ public class CircuitBreaker extends Component {
     public void turnOff() {
         this.on = false;
         Reporter.report(this, Reporter.Msg.SWITCHING_OFF);
-        this.source.changeDraw(-draw);
+        this.source.changeDraw(-prevDelta);
+        this.disensageLoads();
 
     }
 
@@ -84,14 +86,6 @@ public class CircuitBreaker extends Component {
         return this.source;
     }
 
-    /**
-     * Inform all Components to which this Component acts as a source
-     * that they will no longer get any current
-     */
-    @Override
-    protected void disensageLoads() {
-        super.disensageLoads();
-    }
 
     /**
      * Display this (sub)tree vertically, with indentation
@@ -116,7 +110,8 @@ public class CircuitBreaker extends Component {
     @Override
     protected void changeDraw(int delta) {
         super.changeDraw(delta);
-        if (this.draw> this.limit){
+        this.prevDelta=this.draw-delta;
+        if (this.draw> this.limit){  //if the current draw exceed the limit. blow up.
                 Reporter.report(this, Reporter.Msg.BLOWN, this.getDraw());
                 this.turnOff();
                 this.disensageLoads();
@@ -126,4 +121,13 @@ public class CircuitBreaker extends Component {
         }
     }
 
+    /**
+     * This component tells its loads that they can no longer acts as a source that they
+     * will no longer get any current
+     */
+    @Override
+    protected void disengage() {
+        super.disengage();
+
+    }
 }

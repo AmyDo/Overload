@@ -64,9 +64,9 @@ public abstract class Component {
      * that they will no longer get any current
      */
     protected void disensageLoads() {
-
         for (Component comp : this.hset) {
-            comp.disengage();
+                comp.disengage();
+
         }
     }
 

@@ -71,8 +71,6 @@ public class Appliance extends Component {
     }
 
 
-
-
     /**
      * the source for this component is now being empowered.
      */
@@ -82,7 +80,6 @@ public class Appliance extends Component {
         this.engaged=true;
         Reporter.report(this, Reporter.Msg.ENGAGING);
     }
-
 
     /**
      * What Component is feeding power to this Component.
@@ -122,6 +119,16 @@ public class Appliance extends Component {
          super.changeDraw(delta);
          this.getSource().changeDraw(delta);
      }
+
+    /**
+     * This component tells its loads that they can no longer acts as a source that they
+     * will no longer get any current
+     */
+    @Override
+    protected void disengage() {
+        super.disengage();
+        this.changeDraw(RATING);
+    }
 }
 
 
