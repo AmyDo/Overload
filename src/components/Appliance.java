@@ -101,7 +101,7 @@ public class Appliance extends Component {
      */
     @Override
     protected void display() {
-        System.out.println(this.toString());
+        System.out.println("+"+ indent(this.i)+ this.toString());
     }
 
 

@@ -49,8 +49,8 @@ public abstract class Component {
         if (delta != 0) {
 //            if ((this instanceof CircuitBreaker) && delta<0) {
 //            }else{
-                Reporter.report(this, Reporter.Msg.DRAW_CHANGE, delta);
-        //    }
+            Reporter.report(this, Reporter.Msg.DRAW_CHANGE, delta);
+            //    }
         }
     }
 
@@ -156,29 +156,25 @@ public abstract class Component {
     /**
      * Display this (sub)tree vertically, with indentation
      */
-    int i=0;
-    protected void display(){
+    int i = 0;
 
-        System.out.println(this.indent(i)+"+"+ this.toString());
+    protected void display() {
+        System.out.println(this.indent(i) + "+" + this.toString());
         for (Component comp : hset) {
-
-            System.out.println( this.indent(i+=4)+ "+"+ comp.toString());
-
+            System.out.println(comp.indent(i) + "+" + comp.toString());
             comp.display();
         }
+        i += 4;
 
     }
 
     protected String indent(int depth) {   //number of tab
-        String str= "";
+        String str = "";
         for (int i = 0; i < depth; i++) {
-            str+= " ";
+            str += " ";
         }
         return str;
     }
-
-
-
 
 
 }
