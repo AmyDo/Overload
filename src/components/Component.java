@@ -2,7 +2,6 @@ package components;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.concurrent.CompletionException;
 
 public abstract class Component {
     protected String name;
@@ -46,8 +45,8 @@ public abstract class Component {
      * @param delta- the number of amp by which to raise (+) or lower(-) the draw
      */
     protected void changeDraw(int delta) {
-        this.draw+= delta;
-        Reporter.report(this, Reporter.Msg.DRAW_CHANGE, delta );
+        this.draw += delta;
+        Reporter.report(this, Reporter.Msg.DRAW_CHANGE, delta);
     }
 
     /**
@@ -55,20 +54,23 @@ public abstract class Component {
      * will no longer get any current
      */
     protected void disengage() {
-        this.engaged=false;
+        this.engaged = false;
         Reporter.report(this, Reporter.Msg.DISENGAGING);
     }
 
     /**
      * Inform all Components to which this Component acts as a source
      * that they will no longer get any current
+     *
+     * @param
      */
-    protected void disensageLoads() {
+    protected void disengageLoads(){
         for (Component comp : this.hset) {
-                comp.disengage();
-
+            comp.disengage();
+            comp.disengageLoads();
         }
     }
+
 
     /**
      * the source for this component is now being empowered.

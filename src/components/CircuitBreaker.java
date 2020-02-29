@@ -9,7 +9,6 @@ public class CircuitBreaker extends Component {
     private int prevDelta;
 
 
-
     /**
      * constructor
      *
@@ -41,7 +40,7 @@ public class CircuitBreaker extends Component {
         this.on = true;
         Reporter.report(this, Reporter.Msg.SWITCHING_ON);
 
-        for (Component comp: hset){
+        for (Component comp : hset) {
             comp.engage();
         }
 
@@ -52,9 +51,10 @@ public class CircuitBreaker extends Component {
         this.on = false;
         Reporter.report(this, Reporter.Msg.SWITCHING_OFF);
         this.source.changeDraw(-prevDelta);
-        this.disensageLoads();
+        this.disengageLoads();
 
     }
+
 
     public boolean isSwitchOn() {
         return this.on;
@@ -94,6 +94,7 @@ public class CircuitBreaker extends Component {
     protected void display() {
         System.out.println();
     }
+
     @Override
     protected String printComponent(HashSet<Component> hset) {
         String str = "";
@@ -107,27 +108,22 @@ public class CircuitBreaker extends Component {
         }
         return str;
     }
+
+
     @Override
     protected void changeDraw(int delta) {
         super.changeDraw(delta);
-        this.prevDelta=this.draw-delta;
-        if (this.draw> this.limit){  //if the current draw exceed the limit. blow up.
-                Reporter.report(this, Reporter.Msg.BLOWN, this.getDraw());
-                this.turnOff();
-                this.disensageLoads();
+        this.prevDelta = this.draw - delta;
+        if (this.draw > this.limit) {  //if the current draw exceed the limit. blow up.
+            Reporter.report(this, Reporter.Msg.BLOWN, this.getDraw());
+            this.turnOff();
+
         }
-        if (this.getSource()!=null) {
+        if (this.getSource() != null) {      //if the
             this.getSource().changeDraw(delta);
         }
     }
 
-    /**
-     * This component tells its loads that they can no longer acts as a source that they
-     * will no longer get any current
-     */
-    @Override
-    protected void disengage() {
-        super.disengage();
 
-    }
+
 }

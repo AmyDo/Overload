@@ -6,11 +6,10 @@ public class PowerSource  extends Component {
     private boolean created;
 
 
-
     public PowerSource(String name) {
         super(name);
-        this.engaged=true;
-        this.created=true;
+        this.engaged = true;
+        this.created = true;
         Reporter.report(this, Reporter.Msg.CREATING);
     }
 
@@ -19,9 +18,9 @@ public class PowerSource  extends Component {
      */
     @Override
     public void engage() {
-        this.engaged=true;
+        this.engaged = true;
         Reporter.report(this, Reporter.Msg.ENGAGING);
-        for(Component comp: hset){
+        for (Component comp : hset) {
             comp.engage();
         }
     }
@@ -48,12 +47,12 @@ public class PowerSource  extends Component {
 
     @Override
     protected String printComponent(HashSet<Component> hset) {
-        String str="";
-        if (hset.isEmpty()){
+        String str = "";
+        if (hset.isEmpty()) {
             return null;
-        }else{
-            for (Component comp : hset){
-                str= "+"+ Reporter.identify(comp);
+        } else {
+            for (Component comp : hset) {
+                str = "+" + Reporter.identify(comp);
                 printComponent(comp.hset);
             }
 
@@ -61,9 +60,12 @@ public class PowerSource  extends Component {
         }
         return str;
     }
+
     @Override
     protected void changeDraw(int delta) {
         super.changeDraw(delta);
 
     }
 }
+
+

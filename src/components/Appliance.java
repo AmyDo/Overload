@@ -42,19 +42,20 @@ public class Appliance extends Component {
     }
 
     public void turnOn() {
-        if (this.isSwitchOn()){
-            this.on=true;
+        if (!this.isSwitchOn()){
+            this.on = true;
+            Reporter.report(this, Reporter.Msg.SWITCHING_ON);
+            if (this.engaged()) {
+                this.changeDraw(RATING);
+            }
         }
-        this.on = true;
-        Reporter.report(this, Reporter.Msg.SWITCHING_ON);
-        this.getSource().changeDraw(RATING);
     }
 
     public void turnOff() {
-        if(!this.isSwitchOn()){
+        if(this.isSwitchOn()){
             this.on = false;
             Reporter.report(this, Reporter.Msg.SWITCHING_OFF);
-
+            this.changeDraw(-this.getDraw());
         }
     }
 
@@ -76,9 +77,12 @@ public class Appliance extends Component {
      */
     @Override
     public void engage() {
-        this.getSource().engaged = true;
-        this.engaged=true;
+        this.engaged = true;
         Reporter.report(this, Reporter.Msg.ENGAGING);
+
+        if (this.isSwitchOn()) {
+            this.changeDraw(RATING);
+        }
     }
 
     /**
@@ -108,12 +112,9 @@ public class Appliance extends Component {
                 str= "+"+ Reporter.identify(comp);
                 printComponent(comp.hset);
             }
-
-
         }
         return str;
     }
-
      @Override
     protected void changeDraw(int delta) {
          super.changeDraw(delta);
@@ -127,7 +128,7 @@ public class Appliance extends Component {
     @Override
     protected void disengage() {
         super.disengage();
-        this.changeDraw(RATING);
+        this.changeDraw(-this.getDraw());
     }
 }
 
