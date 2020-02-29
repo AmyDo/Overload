@@ -46,10 +46,14 @@ public abstract class Component {
      */
     protected void changeDraw(int delta) {
         this.draw += delta;
-        if (delta!=0){
-            Reporter.report(this, Reporter.Msg.DRAW_CHANGE, delta);
+        if (delta != 0) {
+//            if ((this instanceof CircuitBreaker) && delta<0) {
+//            }else{
+                Reporter.report(this, Reporter.Msg.DRAW_CHANGE, delta);
+        //    }
         }
     }
+
 
     /**
      * This component tells its loads that they can no longer acts as a source that they
@@ -66,7 +70,7 @@ public abstract class Component {
      *
      * @param
      */
-    protected void disengageLoads(){
+    protected void disengageLoads() {
         for (Component comp : this.hset) {
             comp.disengage();
             comp.disengageLoads();
@@ -153,6 +157,12 @@ public abstract class Component {
      * Display this (sub)tree vertically, with indentation
      */
     protected abstract void display();
+//    {
+//        for(Component comp: this.hset){
+//            System.out.println("+" + this.toString());
+//            comp.display();
+//        }
+//    }
 
     protected abstract String printComponent(HashSet<Component> hset);
 

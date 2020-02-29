@@ -100,8 +100,10 @@ public class Appliance extends Component {
      * Display this (sub)tree vertically, with indentation
      */
     @Override
-    protected void display(){
+    protected void display() {
+
     }
+
 
     @Override
     protected String printComponent(HashSet<Component> hset) {

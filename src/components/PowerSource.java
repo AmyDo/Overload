@@ -35,15 +35,7 @@ public class PowerSource  extends Component {
         return null;
     }
 
-    /**
-     * Display this (sub)tree vertically, with indentation
-     */
-    @Override
-    public void display() {
-//        for (Component comp: this.hset){
-//            Reporter.report(this, comp, Reporter.Msg.ATTACHING);
-//        }
-    }
+
 
     @Override
     protected String printComponent(HashSet<Component> hset) {
@@ -66,6 +58,17 @@ public class PowerSource  extends Component {
         super.changeDraw(delta);
 
     }
+
+    /**
+     * Display this (sub)tree vertically, with indentation
+     */
+    @Override
+    public void display() {
+        for (Component comp: hset){
+            System.out.println("+"+ comp.toString());
+        }
+    }
+
 }
 
 

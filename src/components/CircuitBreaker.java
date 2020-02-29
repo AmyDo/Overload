@@ -84,14 +84,14 @@ public class CircuitBreaker extends Component {
         return this.source;
     }
 
-
     /**
      * Display this (sub)tree vertically, with indentation
      */
     @Override
     protected void display() {
-        System.out.println();
+
     }
+
 
     @Override
     protected String printComponent(HashSet<Component> hset) {
@@ -120,5 +120,7 @@ public class CircuitBreaker extends Component {
         if (this.getSource().getDraw()>0) {
             this.getSource().changeDraw(delta);
         }
+
+
     }
 }
