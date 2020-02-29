@@ -46,7 +46,9 @@ public abstract class Component {
      */
     protected void changeDraw(int delta) {
         this.draw += delta;
-        Reporter.report(this, Reporter.Msg.DRAW_CHANGE, delta);
+        if (delta!=0){
+            Reporter.report(this, Reporter.Msg.DRAW_CHANGE, delta);
+        }
     }
 
     /**

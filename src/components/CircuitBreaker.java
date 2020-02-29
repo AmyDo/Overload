@@ -29,9 +29,10 @@ public class CircuitBreaker extends Component {
         } else {
             this.engaged = false;
         }
+        Reporter.report(this, Reporter.Msg.CREATING);
         this.limit = limit;
         this.on = false;
-        Reporter.report(this, Reporter.Msg.CREATING);
+
         Reporter.report(source, this, Reporter.Msg.ATTACHING);
 
     }
@@ -39,12 +40,9 @@ public class CircuitBreaker extends Component {
     public void turnOn() {
         this.on = true;
         Reporter.report(this, Reporter.Msg.SWITCHING_ON);
-
         for (Component comp : hset) {
             comp.engage();
         }
-
-
     }
 
     public void turnOff() {
@@ -119,11 +117,8 @@ public class CircuitBreaker extends Component {
             this.turnOff();
 
         }
-        if (this.getSource() != null) {      //if the
+        if (this.getSource().getDraw()>0) {
             this.getSource().changeDraw(delta);
         }
     }
-
-
-
 }

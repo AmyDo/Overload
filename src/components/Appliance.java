@@ -35,10 +35,11 @@ public class Appliance extends Component {
                 this.engaged = false;
             }
         }
-        this.RATING = rating;
-        this.on = false;
         Reporter.report(this, Reporter.Msg.CREATING);
         Reporter.report(source, this, Reporter.Msg.ATTACHING);
+        this.RATING = rating;
+        this.on = false;
+
     }
 
     public void turnOn() {
