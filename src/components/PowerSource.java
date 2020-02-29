@@ -2,7 +2,7 @@ package components;
 
 import java.util.HashSet;
 
-public class PowerSource  extends Component {
+public class PowerSource extends Component {
     private boolean created;
 
 
@@ -36,23 +36,6 @@ public class PowerSource  extends Component {
     }
 
 
-
-    @Override
-    protected String printComponent(HashSet<Component> hset) {
-        String str = "";
-        if (hset.isEmpty()) {
-            return null;
-        } else {
-            for (Component comp : hset) {
-                str = "+" + Reporter.identify(comp);
-                printComponent(comp.hset);
-            }
-
-
-        }
-        return str;
-    }
-
     @Override
     protected void changeDraw(int delta) {
         super.changeDraw(delta);
@@ -64,11 +47,8 @@ public class PowerSource  extends Component {
      */
     @Override
     public void display() {
-        for (Component comp: hset){
-            System.out.println("+"+ comp.toString());
-        }
+        super.display();
     }
-
 }
 
 

@@ -89,23 +89,9 @@ public class CircuitBreaker extends Component {
      */
     @Override
     protected void display() {
-
+        super.display();
     }
 
-
-    @Override
-    protected String printComponent(HashSet<Component> hset) {
-        String str = "";
-        if (hset.isEmpty()) {
-            return null;
-        } else {
-            for (Component comp : hset) {
-                str = "+" + Reporter.identify(comp);
-                printComponent(comp.hset);
-            }
-        }
-        return str;
-    }
 
 
     @Override
@@ -115,12 +101,10 @@ public class CircuitBreaker extends Component {
         if (this.draw > this.limit) {  //if the current draw exceed the limit. blow up.
             Reporter.report(this, Reporter.Msg.BLOWN, this.getDraw());
             this.turnOff();
-
         }
         if (this.getSource().getDraw()>0) {
             this.getSource().changeDraw(delta);
         }
-
 
     }
 }

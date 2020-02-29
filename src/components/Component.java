@@ -156,14 +156,29 @@ public abstract class Component {
     /**
      * Display this (sub)tree vertically, with indentation
      */
-    protected abstract void display();
-//    {
-//        for(Component comp: this.hset){
-//            System.out.println("+" + this.toString());
-//            comp.display();
-//        }
-//    }
+    int i=0;
+    protected void display(){
 
-    protected abstract String printComponent(HashSet<Component> hset);
+        System.out.println(this.indent(i)+"+"+ this.toString());
+        for (Component comp : hset) {
+
+            System.out.println( this.indent(i+=4)+ "+"+ comp.toString());
+
+            comp.display();
+        }
+
+    }
+
+    protected String indent(int depth) {   //number of tab
+        String str= "";
+        for (int i = 0; i < depth; i++) {
+            str+= " ";
+        }
+        return str;
+    }
+
+
+
+
 
 }
