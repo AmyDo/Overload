@@ -5,6 +5,7 @@ import java.util.HashSet;
 public class Outlet extends Component {
     private Component source;
 
+
     /**
      * constructor
      *
@@ -26,6 +27,8 @@ public class Outlet extends Component {
         }
         this.draw = 0;
         Reporter.report(source, this, Reporter.Msg.ATTACHING);
+        this.switchable=false;
+
     }
 
     /**

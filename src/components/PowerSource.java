@@ -11,7 +11,7 @@ public class PowerSource extends Component {
         super(name);
         this.engaged = true;
         this.created = true;
-
+        this.switchable=false;
     }
 
     /**
@@ -56,7 +56,6 @@ public class PowerSource extends Component {
 
     @Override
     public void toggle() {
-
     }
 }
 

@@ -38,6 +38,7 @@ public class Appliance extends Component {
         Reporter.report(source, this, Reporter.Msg.ATTACHING);
         this.RATING = rating;
         this.on = false;
+        this.switchable=true;
 
     }
 

@@ -32,7 +32,7 @@ public class CircuitBreaker extends Component {
 
         this.limit = limit;
         this.on = false;
-
+        this.switchable=true;
         Reporter.report(source, this, Reporter.Msg.ATTACHING);
 
     }

@@ -10,6 +10,7 @@ public abstract class Component {
     protected HashSet<Component> hset;
     protected int draw;
     protected ArrayList<Component> circuit;   //create circuit
+    protected boolean switchable;
 
     /**
      * constructor
@@ -168,5 +169,8 @@ public abstract class Component {
         }
     }
      public abstract void toggle();
+    public boolean getSwitchable(){
+        return this.switchable;
+    }
 
 }

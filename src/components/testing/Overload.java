@@ -148,7 +148,11 @@ public class Overload {
 
         }else if(line[0].equals("toggle")){
             System.out.println(" ?  -> toggle["+ line[1]+ "]");
-            hmap.get(line[1]).toggle();   //call the toggle
+
+            if(hmap.get(line[1]).getSwitchable()){    //check if the component is Circuit breaker or Appliance.
+                hmap.get(line[1]).toggle();
+            }
+
 
         }else if(line[0].equals("connect")){
             System.out.println(" ?  -> connect[ ");
