@@ -4,6 +4,7 @@ import java.util.HashSet;
 
 public class PowerSource extends Component {
     private boolean created;
+    private int prevDelta;
 
 
     public PowerSource(String name) {
@@ -38,7 +39,9 @@ public class PowerSource extends Component {
 
     @Override
     protected void changeDraw(int delta) {
-        super.changeDraw(delta);
+
+            super.changeDraw(delta);
+
 
     }
 
@@ -48,6 +51,7 @@ public class PowerSource extends Component {
     @Override
     public void display() {
         super.display();
+
     }
 }
 

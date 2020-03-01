@@ -50,18 +50,24 @@ public class Outlet extends Component {
         return this.source;
     }
     /**
-     * Display this (sub)tree vertically, with indentation
-     */
+//     * Display this (sub)tree vertically, with indentation
+//     */
     @Override
     protected void display() {
-        super.display();
+        for (Component comp : hset) {
+            System.out.println("              +"+ comp.toString());
+            comp.display();
+        }
+
     }
 
 
     @Override
     protected void changeDraw(int delta) {
         super.changeDraw(delta);
-        this.getSource().changeDraw(delta);
+        if(this.engaged==true) {
+            this.getSource().changeDraw(delta);
+        }
     }
     
 

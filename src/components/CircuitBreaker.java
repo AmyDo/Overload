@@ -46,6 +46,7 @@ public class CircuitBreaker extends Component {
     }
 
     public void turnOff() {
+
         this.on = false;
         Reporter.report(this, Reporter.Msg.SWITCHING_OFF);
         this.source.changeDraw(-prevDelta);
@@ -89,7 +90,11 @@ public class CircuitBreaker extends Component {
      */
     @Override
     protected void display() {
-        super.display();
+        for (Component comp : hset) {
+            System.out.println( "          +"+ comp.toString());
+            comp.display();
+        }
+
     }
 
 
@@ -98,11 +103,11 @@ public class CircuitBreaker extends Component {
     protected void changeDraw(int delta) {
         super.changeDraw(delta);
         this.prevDelta = this.draw - delta;
-        if (this.draw > this.limit) {  //if the current draw exceed the limit. blow up.
+        if (this.draw > this.limit && this.isSwitchOn()) {  //if the current draw exceed the limit. blow up.
             Reporter.report(this, Reporter.Msg.BLOWN, this.getDraw());
             this.turnOff();
         }
-        if (this.getSource().getDraw()>0) {
+        if (this.getSource().getDraw()>=0 && this.getSource().engaged) {
             this.getSource().changeDraw(delta);
         }
 

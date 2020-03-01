@@ -156,15 +156,16 @@ public abstract class Component {
     /**
      * Display this (sub)tree vertically, with indentation
      */
-    int i = 0;
 
     protected void display() {
-        System.out.println(this.indent(i) + "+" + this.toString());
+
+
+        System.out.println("+" + this.toString());
         for (Component comp : hset) {
-            System.out.println(comp.indent(i) + "+" + comp.toString());
+            System.out.println( "    +"+comp.toString());
             comp.display();
         }
-        i += 4;
+
 
     }
 
