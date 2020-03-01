@@ -1,5 +1,6 @@
 package components;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 
@@ -8,6 +9,7 @@ public abstract class Component {
     protected boolean engaged;
     protected HashSet<Component> hset;
     protected int draw;
+    protected ArrayList<Component> circuit;   //create circuit
 
     /**
      * constructor
@@ -18,6 +20,8 @@ public abstract class Component {
         this.name = name;
         this.hset = new HashSet<>();      //create set of loads
         this.draw = 0;
+        this.circuit= new ArrayList<>();
+        Reporter.report(this, Reporter.Msg.CREATING);
     }
 
     /**
@@ -157,8 +161,6 @@ public abstract class Component {
      */
 
     protected void display() {
-
-
         System.out.println("+" + this.toString());
         for (Component comp : hset) {
             System.out.println( "    +"+comp.toString());
@@ -167,14 +169,5 @@ public abstract class Component {
 
 
     }
-
-    protected String indent(int depth) {   //number of tab
-        String str = "";
-        for (int i = 0; i < depth; i++) {
-            str += " ";
-        }
-        return str;
-    }
-
 
 }

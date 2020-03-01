@@ -25,7 +25,6 @@ public class Outlet extends Component {
             this.engaged = false;
         }
         this.draw = 0;
-        Reporter.report(this, Reporter.Msg.CREATING);
         Reporter.report(source, this, Reporter.Msg.ATTACHING);
     }
 

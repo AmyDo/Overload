@@ -29,7 +29,7 @@ public class CircuitBreaker extends Component {
         } else {
             this.engaged = false;
         }
-        Reporter.report(this, Reporter.Msg.CREATING);
+
         this.limit = limit;
         this.on = false;
 

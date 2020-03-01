@@ -11,7 +11,7 @@ public class PowerSource extends Component {
         super(name);
         this.engaged = true;
         this.created = true;
-        Reporter.report(this, Reporter.Msg.CREATING);
+
     }
 
     /**
