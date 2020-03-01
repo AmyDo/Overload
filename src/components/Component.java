@@ -160,7 +160,7 @@ public abstract class Component {
      * Display this (sub)tree vertically, with indentation
      */
 
-    protected void display() {
+    public void display() {
         System.out.println("+" + this.toString());
         for (Component comp : hset) {
             System.out.println( "    +"+comp.toString());
@@ -169,5 +169,7 @@ public abstract class Component {
 
 
     }
+
+     public abstract void toggle();
 
 }

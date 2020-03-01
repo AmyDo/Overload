@@ -14,7 +14,7 @@ import java.util.*;
 public class Overload {
     HashMap<String, Component> hmap = new HashMap<String, Component>();
     ArrayList<String> commandList = new ArrayList<String>();
-
+    ArrayList<PowerSource> powerSourceArrayList= new ArrayList<>();
 
 
     public static final int BAD_ARGS = 1;
@@ -57,19 +57,21 @@ public class Overload {
     private static Reporter Support;
 
 
-    public Overload(String filename) {
+    public Overload(String filename, String filename2 ) {
         readFile(filename);
+        readCommandFile(filename2);
 
     }
 
     public static void main(String[] args) {
         System.out.println("Overload Project, CS2");
-        if (args.length != 1) {
-            System.out.println("Please Enter correct filename");
-            return;
-        } else {
-            new Overload(args[0]).run();
-        }
+//        if (args.length != 1) {
+//            System.out.println("Please Enter correct filename");
+//            return;
+//        } else {
+//            new Overload(args[0]).run();
+            new Overload("config4.txt", "config4_inA.txt");
+      //  }
     }
 
     public void run() {
@@ -102,6 +104,7 @@ public class Overload {
     public void processLine(String[] line) {
         if (line[0].equals("PowerSource")) {
             hmap.put(line[1], new PowerSource(line[1]));
+            powerSourceArrayList.add(new PowerSource(line[1]));     //add all the power source to the arraylist=> to call display later on
         } else if (line[0].equals("CircusBreaker")) {
             hmap.put(line[1], new Appliance(line[1], hmap.get(line[2]), Integer.parseInt(line[3])));
         } else if (line[0].equals("Outlet")) {
@@ -118,8 +121,6 @@ public class Overload {
                 proccessCommand(line);
                 count++;
             }
-
-
         }catch (FileNotFoundException e) {
             Support.usageError(FILE_NOT_FOUND);
         }
@@ -135,13 +136,22 @@ public class Overload {
                 break;
             }
         }
+        if(line[0].equals("display")){
+            System.out.println(" ?  -> display[]");
+            for(PowerSource ps: powerSourceArrayList){
+                ps.display();       //display the chain
+            }
 
+        }else if(line[0].equals("toggle")){
+            System.out.println(" ?  -> toggle["+ line[1]+ "]");
+            hmap.get(line[1]).toggle();   //call the toggle
 
-
-
-
-
+        }else if(line[0].equals("connect")){
+            System.out.println(" ?  -> connect[ "+  hmap.get(line[2]).toString()+ "]");
+        }
     }
+
+
 
 
 }

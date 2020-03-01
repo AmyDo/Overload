@@ -52,11 +52,16 @@ public class Outlet extends Component {
 //     * Display this (sub)tree vertically, with indentation
 //     */
     @Override
-    protected void display() {
+    public void display() {
         for (Component comp : hset) {
             System.out.println("              +"+ comp.toString());
             comp.display();
         }
+
+    }
+
+    @Override
+    public  void toggle() {
 
     }
 

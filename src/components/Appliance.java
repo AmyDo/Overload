@@ -99,14 +99,21 @@ public class Appliance extends Component {
      * Display this (sub)tree vertically, with indentation
      */
     @Override
-    protected void display() {
+    public void display() {
 
     }
 
+    @Override
+    public void toggle() {
+        if (this.isSwitchOn()){
+            this.turnOff();
+        }else{
+            this.turnOn();
+        }
+    }
 
 
-
-     @Override
+    @Override
     protected void changeDraw(int delta) {
          super.changeDraw(delta);
          this.getSource().changeDraw(delta);

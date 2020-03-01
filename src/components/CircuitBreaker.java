@@ -89,7 +89,7 @@ public class CircuitBreaker extends Component {
      * Display this (sub)tree vertically, with indentation
      */
     @Override
-    protected void display() {
+    public void display() {
         for (Component comp : hset) {
             System.out.println( "          +"+ comp.toString());
             comp.display();
@@ -97,6 +97,14 @@ public class CircuitBreaker extends Component {
 
     }
 
+    @Override
+    public void toggle() {
+        if (this.isSwitchOn()){
+            this.turnOff();
+        }else{
+            this.turnOn();
+        }
+    }
 
 
     @Override

@@ -53,6 +53,11 @@ public class PowerSource extends Component {
         super.display();
 
     }
+
+    @Override
+    public void toggle() {
+
+    }
 }
 
 
