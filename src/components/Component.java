@@ -166,10 +166,7 @@ public abstract class Component {
             System.out.println( "    +"+comp.toString());
             comp.display();
         }
-
-
     }
-
      public abstract void toggle();
 
 }

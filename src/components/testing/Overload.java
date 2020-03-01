@@ -89,8 +89,10 @@ public class Overload {
 
             System.out.println(count + " components created.");
             System.out.println("Starting up the main circuit(s): ");
-            System.out.println("PowerSource Home(draw 0): powering up\n" +
-                    "PowerSource Home(draw 0): engaging");
+            System.out.println("PowerSource Home(draw 0): powering up");
+            for (PowerSource ps: powerSourceArrayList){
+                ps.engage();
+            }
         } catch (FileNotFoundException e) {
             Support.usageError(FILE_NOT_FOUND);
         }
@@ -121,6 +123,7 @@ public class Overload {
                 proccessCommand(line);
                 count++;
             }
+
         }catch (FileNotFoundException e) {
             Support.usageError(FILE_NOT_FOUND);
         }
@@ -129,6 +132,7 @@ public class Overload {
         commandList.add("connect");
         commandList.add("toggle");
         commandList.add("display");
+        commandList.add("quit");
 
         for(String i: commandList){
             if (!line[0].equals(i)){
@@ -148,6 +152,9 @@ public class Overload {
 
         }else if(line[0].equals("connect")){
             System.out.println(" ?  -> connect[ ");
+
+        }else if(line[0].equals("quit")){
+            System.exit(1);
         }
     }
 
