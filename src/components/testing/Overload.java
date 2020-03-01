@@ -147,7 +147,7 @@ public class Overload {
             hmap.get(line[1]).toggle();   //call the toggle
 
         }else if(line[0].equals("connect")){
-            System.out.println(" ?  -> connect[ "+  hmap.get(line[2]).toString()+ "]");
+            System.out.println(" ?  -> connect[ ");
         }
     }
 
