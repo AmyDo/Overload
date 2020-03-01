@@ -47,10 +47,9 @@ public abstract class Component {
     protected void changeDraw(int delta) {
         this.draw += delta;
         if (delta != 0) {
-//            if ((this instanceof CircuitBreaker) && delta<0) {
-//            }else{
+
             Reporter.report(this, Reporter.Msg.DRAW_CHANGE, delta);
-            //    }
+
         }
     }
 
