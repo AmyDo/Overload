@@ -196,13 +196,11 @@ public class Overload {
 
 
         if (line[0].equals("display")) {
-            System.out.println(" ?  -> display[]");
             for (String ps : powerSourceArrayList) {  //get the keys of the powersource
                 hmap.get(ps).display();
             }
 
         } else if (line[0].equals("toggle")) {
-            System.out.println(" ?  -> toggle[" + line[1] + "]");
 
             if (hmap.containsKey(line[1])) {  //check if the
                 if (hmap.get(line[1]).getSwitchable()) {    //check if the component is Circuit breaker or Appliance.
@@ -217,7 +215,6 @@ public class Overload {
             }
 
         } else if (line[0].equals("connect")) {
-            System.out.println(" ?  -> connect[ ");
             String[] newLine = new String[line.length - 1];  //create new array
             for (int i = 0; i < newLine.length; i++) {
                 newLine[i] = line[i + 1];
