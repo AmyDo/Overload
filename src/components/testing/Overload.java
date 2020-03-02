@@ -182,6 +182,7 @@ public class Overload {
                 Reporter.usageError(UNKNOWN_COMPONENT);
             }
         } else if (line[0].equals("quit")) {
+            System.out.println(" ?  -> quit");
             System.exit(1);
         }
     }
