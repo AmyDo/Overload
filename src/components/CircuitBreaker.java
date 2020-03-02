@@ -32,7 +32,7 @@ public class CircuitBreaker extends Component {
 
         this.limit = limit;
         this.on = false;
-        this.switchable=true;
+        this.switchable = true;
         Reporter.report(source, this, Reporter.Msg.ATTACHING);
 
     }
@@ -49,9 +49,8 @@ public class CircuitBreaker extends Component {
         this.on = false;
         Reporter.report(this, Reporter.Msg.SWITCHING_OFF);
         this.source.changeDraw(-prevDelta);
-        this.source.engaged=false;
+        // this.source.engaged=false;
         this.disengageLoads();
-
     }
 
 
@@ -91,7 +90,7 @@ public class CircuitBreaker extends Component {
     @Override
     public void display() {
         for (Component comp : hset) {
-            System.out.println( "          +"+ comp.toString());
+            System.out.println("          +" + comp.toString());
             comp.display();
         }
 
@@ -99,9 +98,9 @@ public class CircuitBreaker extends Component {
 
     @Override
     public void toggle() {
-        if (this.isSwitchOn()){
+        if (this.isSwitchOn()) {
             this.turnOff();
-        }else{
+        } else {
             this.turnOn();
         }
     }
@@ -119,9 +118,7 @@ public class CircuitBreaker extends Component {
             Reporter.report(this, Reporter.Msg.BLOWN, this.getDraw());
             this.turnOff();
         }
-        if (this.getSource().getDraw()>=0 && this.getSource().engaged) {
+        if (this.isSwitchOn())
             this.getSource().changeDraw(delta);
-        }
-
     }
 }

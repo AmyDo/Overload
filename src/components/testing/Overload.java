@@ -75,7 +75,6 @@ public class Overload {
         //  }
     }
     public void run() {
-
     }
     public void readFile(String filename) {
         try (Scanner configFile = new Scanner((new File(filename)))) {
@@ -84,11 +83,8 @@ public class Overload {
                 //process the line in the tex
                 String[] line = configFile.nextLine().split(" ");
                 processLine(line);
-
-
                 count++;
             }
-
             System.out.println(count + " components created.");
             System.out.println("Starting up the main circuit(s): ");
             System.out.println("PowerSource Home(draw 0): powering up");
@@ -96,7 +92,8 @@ public class Overload {
                 hmap.get(ps).engage();
             }
         } catch (FileNotFoundException e) {
-            Support.usageError(FILE_NOT_FOUND);
+            //Support.usageError(FILE_NOT_FOUND);
+            Reporter.usageError(FILE_NOT_FOUND);
         }
     }
 
@@ -111,7 +108,8 @@ public class Overload {
         typeArray.add("Outlet");
         typeArray.add("PowerSource");
         if (!typeArray.contains(line[0])) {
-            Support.usageError(UNKNOWN_COMPONENT_TYPE);
+           // Support.usageError(UNKNOWN_COMPONENT_TYPE);
+            Reporter.usageError(UNKNOWN_COMPONENT_TYPE);
         } else {
             if (line[0].equals("PowerSource")) {
                 hmap.put(line[1], new PowerSource(line[1]));
@@ -126,6 +124,9 @@ public class Overload {
         }
     }
 
+    public void readCommandInput(String input){
+
+    }
     public void readCommandFile(String filename) {
         try (Scanner configFile = new Scanner((new File(filename)))) {
             int count = 0;
@@ -136,9 +137,11 @@ public class Overload {
             }
 
         } catch (FileNotFoundException e) {
-            Support.usageError(FILE_NOT_FOUND);
+            //Support.usageError(FILE_NOT_FOUND);
+            Reporter.usageError((FILE_NOT_FOUND));
         }
     }
+
 
     public void proccessCommand(String[] line) {
         commandList.add("connect");
@@ -146,7 +149,8 @@ public class Overload {
         commandList.add("display");
         commandList.add("quit");
         if (!commandList.contains(line[0])) {
-            Support.usageError(UNKNOWN_USER_COMMAND);
+         //   Support.usageError(UNKNOWN_USER_COMMAND);
+            Reporter.usageError(UNKNOWN_USER_COMMAND);
 
         }
         if (line[0].equals("display")) {
@@ -162,10 +166,12 @@ public class Overload {
                 if (hmap.get(line[1]).getSwitchable()) {    //check if the component is Circuit breaker or Appliance.
                     hmap.get(line[1]).toggle();
                 } else {
-                    Support.usageError(UNSWITCHABLE_COMPONENT);
+                    //Support.usageError(UNSWITCHABLE_COMPONENT);
+                    Reporter.usageError(UNSWITCHABLE_COMPONENT);
                 }
             }else{
-                Support.usageError(UNKNOWN_COMPONENT);
+                //Support.usageError(UNKNOWN_COMPONENT);
+                Reporter.usageError(UNKNOWN_COMPONENT);
 
             }
 
@@ -180,6 +186,7 @@ public class Overload {
 
             } else {
                 Reporter.usageError(UNKNOWN_COMPONENT);
+
             }
         } else if (line[0].equals("quit")) {
             System.out.println(" ?  -> quit");

@@ -116,7 +116,12 @@ public class Appliance extends Component {
 
     @Override
     protected void changeDraw(int delta) {
-         super.changeDraw(delta);
+         //super.changeDraw(delta);
+        this.draw += delta;
+//        if (delta != 0) {
+//            Reporter.report(this, Reporter.Msg.DRAW_CHANGE, delta);
+//
+//        }
          this.getSource().changeDraw(delta);
      }
 

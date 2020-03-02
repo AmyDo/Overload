@@ -72,9 +72,7 @@ public class Outlet extends Component {
     @Override
     protected void changeDraw(int delta) {
         super.changeDraw(delta);
-        if(this.engaged==true) {
             this.getSource().changeDraw(delta);
-        }
     }
     
 
