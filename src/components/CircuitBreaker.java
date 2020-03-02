@@ -27,14 +27,16 @@ public class CircuitBreaker extends Component {
         } else {
             this.engaged = false;
         }
-
-        this.limit = limit;
         this.on = false;
         this.switchable = true;
         Reporter.report(source, this, Reporter.Msg.ATTACHING);
+        this.limit = limit;
 
     }
 
+    /**
+     * turn on the the switchable component
+     */
     public void turnOn() {
         this.on = true;
         Reporter.report(this, Reporter.Msg.SWITCHING_ON);
@@ -43,6 +45,9 @@ public class CircuitBreaker extends Component {
         }
     }
 
+    /**
+     * turn off the switchable component.
+     */
     public void turnOff() {
         this.on = false;
         Reporter.report(this, Reporter.Msg.SWITCHING_OFF);
@@ -52,10 +57,18 @@ public class CircuitBreaker extends Component {
     }
 
 
+    /**
+     * check if the component is switch on or off.
+     * @return true or false
+     */
     public boolean isSwitchOn() {
         return this.on;
     }
 
+    /**
+     * get the limit of the appliance.
+     * @return string representation of integer limit.
+     */
     public String getLimit() {
         return Integer.toString(limit);
     }
@@ -74,7 +87,6 @@ public class CircuitBreaker extends Component {
 
     /**
      * What Component is feeding power to this Component.
-     *
      * @return source component
      */
     @Override
@@ -106,6 +118,10 @@ public class CircuitBreaker extends Component {
         }
     }
 
+    /**
+     * Change the amount of current passing through this Component.
+     * @param delta- the number of amp by which to raise (+) or lower(-) the draw
+     */
     @Override
     protected void changeDraw(int delta) {
         this.prevDraw = this.getDraw();
