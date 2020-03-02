@@ -9,8 +9,7 @@ public class Outlet extends Component {
     private Component source;
 
     /**
-     * constructor
-     *
+     * construct the outlet component.
      * @param name   of this outlet
      * @param source that this outlet drw from
      */

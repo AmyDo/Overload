@@ -1,5 +1,8 @@
 package components;
 
+/**
+ *  This class represents a switchable CircuitBreaker component, and its functionaries.
+ */
 public class CircuitBreaker extends Component {
     private Component source;
     private int limit;
@@ -8,8 +11,7 @@ public class CircuitBreaker extends Component {
 
 
     /**
-     * constructor
-     *
+     * construct the circuit breaker
      * @param name   of this circuit breaker
      * @param source to draw current from
      * @param limit  max rated load

@@ -11,7 +11,7 @@ public class PowerSource extends Component {
     private int prevDelta;
 
     /**
-     * constructor
+     * construct Power-Source
      * @param name string
      */
     public PowerSource(String name) {
@@ -53,8 +53,6 @@ public class PowerSource extends Component {
         if(this.engaged) {
             super.changeDraw(delta);
         }
-
-
     }
 
     /**

@@ -1,6 +1,5 @@
 package components;
 
-import java.util.HashSet;
 
 /**
  * This class represents a switchable Appliance component, and its functionaries.

@@ -18,7 +18,7 @@ public abstract class Component {
     protected boolean on;
 
     /**
-     * constructor
+     * construct a component with a name.
      *
      * @param name of this component.
      */
