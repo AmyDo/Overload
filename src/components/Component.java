@@ -12,7 +12,7 @@ import java.util.HashSet;
 public abstract class Component {
     protected String name;
     protected boolean engaged;
-    protected HashSet<Component> hset;
+    protected ArrayList<Component> hset;
     protected int draw;
     protected boolean switchable;
 
@@ -23,7 +23,7 @@ public abstract class Component {
      */
     public Component(String name) {
         this.name = name;
-        this.hset = new HashSet<>();      //create set of loads
+        this.hset = new ArrayList<>();      //create set of loads
         this.draw = 0;
         Reporter.report(this, Reporter.Msg.CREATING);
     }

@@ -18,6 +18,7 @@ public class Overload {
     ArrayList<String> commandList = new ArrayList<String>();
     ArrayList<String> powerSourceArrayList = new ArrayList<>();
     ArrayList<String> typeArray = new ArrayList<>();
+    public int count;
 
 
     public static final int BAD_ARGS = 1;
@@ -63,12 +64,12 @@ public class Overload {
      * Class constructor
      *
      * @param filename string
-     * @param command  string
      */
-    public Overload(String filename, String command) {
+    public Overload(String filename) {
         readFile(filename);
+        readCommandInput();
         //  readCommandFile(command);
-        readCommandInput(command);
+        // readCommandInput(command);
 
     }
 
@@ -78,27 +79,20 @@ public class Overload {
      * @param args
      */
     public static void main(String[] args) {
-        System.out.print(PROMPT);
-        Scanner scanIn = new Scanner(System.in);
-        String input = scanIn.nextLine();
-
         System.out.println("Overload Project, CS2");
         if (args.length == 0) {
             Reporter.usageError(FILE_NOT_FOUND);
             return;
-        } else if (args.length >1) {
+        } else if (args.length > 1) {
             Reporter.usageError(BAD_ARGS);
         } else {
-            new Overload(args[0], input);
+            new Overload(args[0]);
 //        new Overload("config4.txt", "config4_inA.txt");
         }
     }
 
-    /**
-     * runs the program
-     */
-    public void run() {
-    }
+
+
 
     /**
      * this method reads each line and call methods to process it
@@ -107,7 +101,6 @@ public class Overload {
      */
     public void readFile(String filename) {
         try (Scanner configFile = new Scanner((new File(filename)))) {
-            int count = 0;
             while (configFile.hasNextLine()) {
                 //process the line in the tex
                 String[] line = configFile.nextLine().split(" ");
@@ -120,8 +113,8 @@ public class Overload {
             for (String ps : powerSourceArrayList) {   //get the name of the power-source
                 hmap.get(ps).engage();
             }
+
         } catch (FileNotFoundException e) {
-            //Support.usageError(FILE_NOT_FOUND);
             Reporter.usageError(FILE_NOT_FOUND);
         }
     }
@@ -137,7 +130,6 @@ public class Overload {
         typeArray.add("Outlet");
         typeArray.add("PowerSource");
         if (!typeArray.contains(line[0])) {
-            // Support.usageError(UNKNOWN_COMPONENT_TYPE);
             Reporter.usageError(UNKNOWN_COMPONENT_TYPE);
         } else {
             if (line[0].equals("PowerSource")) {
@@ -156,11 +148,16 @@ public class Overload {
     /**
      * Takes in command input and takes action based on it.
      *
-     * @param input String
+     * @param
      */
-    public void readCommandInput(String input) {
-        String[] line = input.split(" ");
-        proccessCommand(line);
+    public void readCommandInput() {
+        while (true) {
+            System.out.print(PROMPT);
+            Scanner scanIn = new Scanner(System.in);
+            String input = scanIn.nextLine();
+            String[] line = input.split(" ");
+            proccessCommand(line);
+        }
 
     }
 
