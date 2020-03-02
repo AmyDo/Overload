@@ -1,12 +1,10 @@
 package components;
 
-import java.util.HashSet;
-
 public class CircuitBreaker extends Component {
     private Component source;
     private int limit;
     private boolean on;
-    private int prevDelta;
+    private int prevDraw;
 
 
     /**
@@ -48,7 +46,7 @@ public class CircuitBreaker extends Component {
     public void turnOff() {
         this.on = false;
         Reporter.report(this, Reporter.Msg.SWITCHING_OFF);
-        this.source.changeDraw(-prevDelta);
+        this.source.changeDraw(-prevDraw);
         // this.source.engaged=false;
         this.disengageLoads();
     }
@@ -96,6 +94,9 @@ public class CircuitBreaker extends Component {
 
     }
 
+    /**
+     * toggle the switchable component.
+     */
     @Override
     public void toggle() {
         if (this.isSwitchOn()) {
@@ -105,20 +106,21 @@ public class CircuitBreaker extends Component {
         }
     }
 
-
     @Override
     protected void changeDraw(int delta) {
+        this.prevDraw = this.getDraw();
         this.draw += delta;
         if (delta != 0 && this.draw <= this.limit) {
             Reporter.report(this, Reporter.Msg.DRAW_CHANGE, delta);
-
+            this.prevDraw = this.getDraw();
+            if (this.isSwitchOn())
+                this.getSource().changeDraw(delta);
+            return;
         }
-        this.prevDelta = this.draw - delta;
         if (this.draw > this.limit && this.isSwitchOn()) {  //if the current draw exceed the limit. blow up.
             Reporter.report(this, Reporter.Msg.BLOWN, this.getDraw());
             this.turnOff();
         }
-        if (this.isSwitchOn())
-            this.getSource().changeDraw(delta);
+
     }
 }

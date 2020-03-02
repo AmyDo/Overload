@@ -50,7 +50,9 @@ public class PowerSource extends Component {
      */
     @Override
     protected void changeDraw(int delta) {
+        if(this.engaged) {
             super.changeDraw(delta);
+        }
 
 
     }
@@ -61,8 +63,9 @@ public class PowerSource extends Component {
     @Override
     public void display() {
         super.display();
-
     }
+
+
 
     /**
      * toggle the switchable component.

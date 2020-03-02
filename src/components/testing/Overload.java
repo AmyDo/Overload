@@ -152,7 +152,7 @@ public class Overload {
      */
     public void readCommandInput() {
         while (true) {
-            System.out.print(PROMPT);
+            System.out.print(PROMPT+ "->");
             Scanner scanIn = new Scanner(System.in);
             String input = scanIn.nextLine();
             String[] line = input.split(" ");

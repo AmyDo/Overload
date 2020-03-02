@@ -15,6 +15,7 @@ public abstract class Component {
     protected ArrayList<Component> hset;
     protected int draw;
     protected boolean switchable;
+    protected boolean on;
 
     /**
      * constructor
@@ -75,7 +76,6 @@ public abstract class Component {
      * Inform all Components to which this Component acts as a source
      * that they will no longer get any current
      *
-     * @param
      */
     protected void disengageLoads() {
         for (Component comp : this.hset) {

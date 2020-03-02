@@ -67,6 +67,7 @@ public class Outlet extends Component {
         }
     }
 
+
     /**
      * toggle the switchable component.
      */
