@@ -2,6 +2,10 @@ package components;
 
 import java.util.HashSet;
 
+/**
+ * This class represents a switchable Appliance component, and its functionaries.
+ * @author: Amy Do
+ */
 public class Appliance extends Component {
     private Component source;
     private int RATING;
@@ -9,14 +13,13 @@ public class Appliance extends Component {
 
 
     /**
-     * constructor
+     * construct the Appliance component
      *
      * @param name   of this appliance
      * @param source of this appliance.
      * @param rating rated draw(unchanged)
      */
     public Appliance(String name, Component source, int rating) {
-
         super(name);
         this.source = source;
         source.attach(this);       //attach this componnent to its source
@@ -42,6 +45,9 @@ public class Appliance extends Component {
 
     }
 
+    /**
+     * Turns on the appliance
+     */
     public void turnOn() {
         if (!this.isSwitchOn()){
             this.on = true;
@@ -52,6 +58,9 @@ public class Appliance extends Component {
         }
     }
 
+    /**
+     * turns off the appliance
+     */
     public void turnOff() {
         if(this.isSwitchOn()){
             this.on = false;
@@ -60,21 +69,25 @@ public class Appliance extends Component {
         }
     }
 
+    /**
+     * Checks if the appliance is on or off.
+     * @return boolean value
+     */
     public boolean isSwitchOn() {
         return this.on;
     }
-//
-//    public int getRating() {
-//        return this.RATING;
-//    }
 
+    /**
+     * gets the rating of the appliance
+     * @return
+     */
     public String getRating() {
         return Integer.toString(this.RATING);
     }
 
 
     /**
-     * the source for this component is now being empowered.
+     * This component is now being empowered.
      */
     @Override
     public void engage() {
@@ -104,6 +117,9 @@ public class Appliance extends Component {
 
     }
 
+    /**
+     * toggle the switchable component
+     */
     @Override
     public void toggle() {
         if (this.isSwitchOn()){
@@ -113,7 +129,11 @@ public class Appliance extends Component {
         }
     }
 
-
+    /**
+     * Change the amount of current passing through this Component.
+     *
+     * @param delta- the number of amp by which to raise (+) or lower(-) the draw
+     */
     @Override
     protected void changeDraw(int delta) {
          //super.changeDraw(delta);

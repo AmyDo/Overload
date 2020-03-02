@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 
+/**
+ * This abstract class represent the backbone of all components. It contains all states and
+ * methods that will be on the subclasses
+ * @Author: Amy do
+ */
 public abstract class Component {
     protected String name;
     protected boolean engaged;
     protected HashSet<Component> hset;
     protected int draw;
-    protected ArrayList<Component> circuit;   //create circuit
     protected boolean switchable;
 
     /**
@@ -21,7 +25,6 @@ public abstract class Component {
         this.name = name;
         this.hset = new HashSet<>();      //create set of loads
         this.draw = 0;
-        this.circuit= new ArrayList<>();
         Reporter.report(this, Reporter.Msg.CREATING);
     }
 
@@ -168,7 +171,16 @@ public abstract class Component {
             comp.display();
         }
     }
+
+    /**
+     * toggle the switchable component
+     */
      public abstract void toggle();
+
+    /**
+     * checks if the component is switchable or not.
+     * @return
+     */
     public boolean getSwitchable(){
         return this.switchable;
     }

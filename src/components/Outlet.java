@@ -2,9 +2,11 @@ package components;
 
 import java.util.HashSet;
 
+/**
+ * This class represents an outlet component, and its functionaries.
+ */
 public class Outlet extends Component {
     private Component source;
-
 
     /**
      * constructor
@@ -27,7 +29,7 @@ public class Outlet extends Component {
         }
         this.draw = 0;
         Reporter.report(source, this, Reporter.Msg.ATTACHING);
-        this.switchable=false;
+        this.switchable = false;
 
     }
 
@@ -39,43 +41,50 @@ public class Outlet extends Component {
         this.getSource().engaged = true;
         this.engaged = true;
         Reporter.report(this, Reporter.Msg.ENGAGING);
-        for(Component comp: hset){
-           comp.engage();
+        for (Component comp : hset) {
+            comp.engage();
         }
     }
+
     /**
      * What Component is feeding power to this Component.
+     *
      * @return source component
      */
     @Override
     protected Component getSource() {
         return this.source;
     }
+
     /**
-//     * Display this (sub)tree vertically, with indentation
-//     */
+     * Display this (sub)tree vertically, with indentation
+     */
     @Override
     public void display() {
         for (Component comp : hset) {
-            System.out.println("              +"+ comp.toString());
+            System.out.println("              +" + comp.toString());
             comp.display();
         }
-
     }
 
+    /**
+     * toggle the switchable component.
+     */
     @Override
-    public  void toggle() {
+    public void toggle() {
 
     }
 
-
+    /**
+     * Change the amount of current passing through this Component.
+     *
+     * @param delta- the number of amp by which to raise (+) or lower(-) the draw
+     */
     @Override
     protected void changeDraw(int delta) {
         super.changeDraw(delta);
-            this.getSource().changeDraw(delta);
+        this.getSource().changeDraw(delta);
     }
-    
-
 
 
 }

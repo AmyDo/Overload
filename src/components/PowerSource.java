@@ -2,11 +2,18 @@ package components;
 
 import java.util.HashSet;
 
+/**
+ * This class represents a power source component, and its functionaries.
+ * @author Amy Do
+ */
 public class PowerSource extends Component {
     private boolean created;
     private int prevDelta;
 
-
+    /**
+     * constructor
+     * @param name string
+     */
     public PowerSource(String name) {
         super(name);
         this.engaged = true;
@@ -36,10 +43,13 @@ public class PowerSource extends Component {
         return null;
     }
 
-
+    /**
+     * Change the amount of current passing through this Component.
+     *
+     * @param delta- the number of amp by which to raise (+) or lower(-) the draw
+     */
     @Override
     protected void changeDraw(int delta) {
-
             super.changeDraw(delta);
 
 
@@ -54,6 +64,9 @@ public class PowerSource extends Component {
 
     }
 
+    /**
+     * toggle the switchable component.
+     */
     @Override
     public void toggle() {
     }

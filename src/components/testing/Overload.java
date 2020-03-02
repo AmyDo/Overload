@@ -4,11 +4,12 @@ import components.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PushbackInputStream;
 import java.lang.reflect.Array;
 import java.util.*;
 
 /**
- * DESCRIPTION
+ * DESCRIPTION: this program simulates  the flow of electricity through the wiring in a home
  *
  * @author Amy Do
  */
@@ -58,24 +59,52 @@ public class Overload {
     private static Reporter Support;
 
 
-    public Overload(String filename, String filename2) {
+    /**
+     * Class constructor
+     *
+     * @param filename string
+     * @param command  string
+     */
+    public Overload(String filename, String command) {
         readFile(filename);
-        readCommandFile(filename2);
+        //  readCommandFile(command);
+        readCommandInput(command);
 
     }
 
+    /**
+     * The main program. This takes in command line argument and user input to run the program.
+     *
+     * @param args
+     */
     public static void main(String[] args) {
+        System.out.print(PROMPT);
+        Scanner scanIn = new Scanner(System.in);
+        String input = scanIn.nextLine();
+
         System.out.println("Overload Project, CS2");
-//        if (args.length != 1) {
-//            System.out.println("Please Enter correct filename");
-//            return;
-//        } else {
-//            new Overload(args[0]).run();
-        new Overload("config4.txt", "config4_inA.txt");
-        //  }
+        if (args.length == 0) {
+            Reporter.usageError(FILE_NOT_FOUND);
+            return;
+        } else if (args.length >1) {
+            Reporter.usageError(BAD_ARGS);
+        } else {
+            new Overload(args[0], input);
+//        new Overload("config4.txt", "config4_inA.txt");
+        }
     }
+
+    /**
+     * runs the program
+     */
     public void run() {
     }
+
+    /**
+     * this method reads each line and call methods to process it
+     *
+     * @param filename
+     */
     public void readFile(String filename) {
         try (Scanner configFile = new Scanner((new File(filename)))) {
             int count = 0;
@@ -98,7 +127,7 @@ public class Overload {
     }
 
     /**
-     * this method proccess each line and them into the hashmap.
+     * this method processes each line and add them into the hashmap.
      *
      * @param line to be proccessed
      */
@@ -108,7 +137,7 @@ public class Overload {
         typeArray.add("Outlet");
         typeArray.add("PowerSource");
         if (!typeArray.contains(line[0])) {
-           // Support.usageError(UNKNOWN_COMPONENT_TYPE);
+            // Support.usageError(UNKNOWN_COMPONENT_TYPE);
             Reporter.usageError(UNKNOWN_COMPONENT_TYPE);
         } else {
             if (line[0].equals("PowerSource")) {
@@ -124,9 +153,22 @@ public class Overload {
         }
     }
 
-    public void readCommandInput(String input){
+    /**
+     * Takes in command input and takes action based on it.
+     *
+     * @param input String
+     */
+    public void readCommandInput(String input) {
+        String[] line = input.split(" ");
+        proccessCommand(line);
 
     }
+
+    /**
+     * This method reads command file and takes action based on it
+     *
+     * @param filename string
+     */
     public void readCommandFile(String filename) {
         try (Scanner configFile = new Scanner((new File(filename)))) {
             int count = 0;
@@ -135,24 +177,27 @@ public class Overload {
                 proccessCommand(line);
                 count++;
             }
-
         } catch (FileNotFoundException e) {
-            //Support.usageError(FILE_NOT_FOUND);
             Reporter.usageError((FILE_NOT_FOUND));
         }
     }
 
-
+    /**
+     * This method performs action based on particular command.
+     * if the
+     *
+     * @param line command to be process
+     */
     public void proccessCommand(String[] line) {
         commandList.add("connect");
         commandList.add("toggle");
         commandList.add("display");
         commandList.add("quit");
         if (!commandList.contains(line[0])) {
-         //   Support.usageError(UNKNOWN_USER_COMMAND);
             Reporter.usageError(UNKNOWN_USER_COMMAND);
-
         }
+
+
         if (line[0].equals("display")) {
             System.out.println(" ?  -> display[]");
             for (String ps : powerSourceArrayList) {  //get the keys of the powersource
@@ -162,14 +207,13 @@ public class Overload {
         } else if (line[0].equals("toggle")) {
             System.out.println(" ?  -> toggle[" + line[1] + "]");
 
-            if (hmap.containsKey(line[1])){  //check if the
+            if (hmap.containsKey(line[1])) {  //check if the
                 if (hmap.get(line[1]).getSwitchable()) {    //check if the component is Circuit breaker or Appliance.
                     hmap.get(line[1]).toggle();
                 } else {
-                    //Support.usageError(UNSWITCHABLE_COMPONENT);
                     Reporter.usageError(UNSWITCHABLE_COMPONENT);
                 }
-            }else{
+            } else {
                 //Support.usageError(UNKNOWN_COMPONENT);
                 Reporter.usageError(UNKNOWN_COMPONENT);
 
@@ -177,22 +221,22 @@ public class Overload {
 
         } else if (line[0].equals("connect")) {
             System.out.println(" ?  -> connect[ ");
-            String[] newLine= new String[line.length-1];  //create new array
-            for( int i=0; i< newLine.length;i++){
-                newLine[i]=line[i+1];
+            String[] newLine = new String[line.length - 1];  //create new array
+            for (int i = 0; i < newLine.length; i++) {
+                newLine[i] = line[i + 1];
             }
-            if (hmap.containsKey(line[3])) {   //check if the source is already existed or not.
-                processLine(newLine);      //proccess the new component.
-
-            } else {
+            if (hmap.containsKey(line[2])) {  //check if the name is not repeated
+                Reporter.usageError(REPEAT_NAME);
+            }
+            if (!hmap.containsKey(line[3])) { //check if the source exist
                 Reporter.usageError(UNKNOWN_COMPONENT);
-
             }
+            processLine(newLine);
+
+
         } else if (line[0].equals("quit")) {
             System.out.println(" ?  -> quit");
             System.exit(1);
         }
     }
-
-
 }
