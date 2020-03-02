@@ -15,7 +15,7 @@ import java.util.*;
 public class Overload {
     HashMap<String, Component> hmap = new HashMap<String, Component>();
     ArrayList<String> commandList = new ArrayList<String>();
-    ArrayList<PowerSource> powerSourceArrayList = new ArrayList<>();
+    ArrayList<String> powerSourceArrayList = new ArrayList<>();
     ArrayList<String> typeArray = new ArrayList<>();
 
 
@@ -74,11 +74,9 @@ public class Overload {
         new Overload("config4.txt", "config4_inA.txt");
         //  }
     }
-
     public void run() {
 
     }
-
     public void readFile(String filename) {
         try (Scanner configFile = new Scanner((new File(filename)))) {
             int count = 0;
@@ -86,14 +84,16 @@ public class Overload {
                 //process the line in the tex
                 String[] line = configFile.nextLine().split(" ");
                 processLine(line);
+
+
                 count++;
             }
 
             System.out.println(count + " components created.");
             System.out.println("Starting up the main circuit(s): ");
             System.out.println("PowerSource Home(draw 0): powering up");
-            for (PowerSource ps : powerSourceArrayList) {
-                ps.engage();
+            for (String ps : powerSourceArrayList) {   //get the name of the power-source
+                hmap.get(ps).engage();
             }
         } catch (FileNotFoundException e) {
             Support.usageError(FILE_NOT_FOUND);
@@ -115,8 +115,8 @@ public class Overload {
         } else {
             if (line[0].equals("PowerSource")) {
                 hmap.put(line[1], new PowerSource(line[1]));
-                powerSourceArrayList.add(new PowerSource(line[1]));     //add all the power source to the arraylist=> to call display later on
-            } else if (line[0].equals("CircusBreaker")) {
+                powerSourceArrayList.add(line[1]);    //add all the name of power source to the arraylist
+            } else if (line[0].equals("CircuitBreaker")) {
                 hmap.put(line[1], new CircuitBreaker(line[1], hmap.get(line[2]), Integer.parseInt(line[3])));
             } else if (line[0].equals("Outlet")) {
                 hmap.put(line[1], new Outlet(line[1], hmap.get(line[2])));
@@ -151,8 +151,8 @@ public class Overload {
         }
         if (line[0].equals("display")) {
             System.out.println(" ?  -> display[]");
-            for (PowerSource ps : powerSourceArrayList) {
-                ps.display();       //display the chain
+            for (String ps : powerSourceArrayList) {  //get the keys of the powersource
+                hmap.get(ps).display();
             }
 
         } else if (line[0].equals("toggle")) {

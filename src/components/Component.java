@@ -163,7 +163,7 @@ public abstract class Component {
 
     public void display() {
         System.out.println("+" + this.toString());
-        for (Component comp : hset) {
+        for (Component comp : this.hset) {
             System.out.println( "    +"+comp.toString());
             comp.display();
         }
