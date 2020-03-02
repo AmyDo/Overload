@@ -30,7 +30,6 @@ public class Overload {
 
     private static final String WHITESPACE_REGEX = "\\s+";
     private static final String[] NO_STRINGS = new String[0];
-
     private static final String PROMPT = "? ";
 
     static {
@@ -118,11 +117,11 @@ public class Overload {
                 hmap.put(line[1], new PowerSource(line[1]));
                 powerSourceArrayList.add(new PowerSource(line[1]));     //add all the power source to the arraylist=> to call display later on
             } else if (line[0].equals("CircusBreaker")) {
-                hmap.put(line[1], new Appliance(line[1], hmap.get(line[2]), Integer.parseInt(line[3])));
+                hmap.put(line[1], new CircuitBreaker(line[1], hmap.get(line[2]), Integer.parseInt(line[3])));
             } else if (line[0].equals("Outlet")) {
                 hmap.put(line[1], new Outlet(line[1], hmap.get(line[2])));
             } else {
-                hmap.put(line[1], new Appliance(line[2], hmap.get(line[2]), Integer.parseInt(line[3])));
+                hmap.put(line[1], new Appliance(line[1], hmap.get(line[2]), Integer.parseInt(line[3])));
             }
         }
     }
@@ -158,8 +157,7 @@ public class Overload {
 
         } else if (line[0].equals("toggle")) {
             System.out.println(" ?  -> toggle[" + line[1] + "]");
-            System.out.println(line[1]);
-            System.out.println(hmap.get(line[1]));
+
             if (hmap.containsKey(line[1])){  //check if the
                 if (hmap.get(line[1]).getSwitchable()) {    //check if the component is Circuit breaker or Appliance.
                     hmap.get(line[1]).toggle();
@@ -170,7 +168,6 @@ public class Overload {
                 Support.usageError(UNKNOWN_COMPONENT);
 
             }
-
 
         } else if (line[0].equals("connect")) {
             System.out.println(" ?  -> connect[ ");
