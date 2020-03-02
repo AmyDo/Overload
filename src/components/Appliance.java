@@ -48,7 +48,6 @@ public class Appliance extends Component {
     /**
      * Turns on the appliance
      */
-
     public void turnOn() {
         if (!this.isSwitchOn()){
             this.on = true;
@@ -62,7 +61,6 @@ public class Appliance extends Component {
     /**
      * turns off the appliance
      */
-
     public void turnOff() {
         if(this.isSwitchOn()){
             this.on = false;

@@ -126,7 +126,7 @@ public class CircuitBreaker extends Component {
     protected void changeDraw(int delta) {
         this.prevDraw = this.getDraw();
         this.draw += delta;
-        if (delta != 0 && this.draw <= this.limit) {
+        if (delta != 0 && this.draw <= this.limit && draw!=0) {
             Reporter.report(this, Reporter.Msg.DRAW_CHANGE, delta);
             this.prevDraw = this.getDraw();
             if (this.isSwitchOn())
